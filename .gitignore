@@ -1,0 +1,34 @@
+Thumbs.db
+
+# Text editors temporary files
+*~
+.~*
+~*
+*.swp
+
+# IDE temporary files
+*.ncb
+*.pdb
+*.suo
+*.obj
+*.lnk
+*.user
+qtc-gdbmacros/
+
+# LaTeX temporary files
+*.aux
+*.log
+*.out
+*.toc
+*.lof
+*.blg
+*.bbl
+
+# Temporary build files
+*.o
+*.a
+moc_*
+
+# Auto-generated documentation files
+doc/api/*/*
+
