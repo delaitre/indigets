@@ -6,11 +6,15 @@
 class CircularScale : public AbstractScale
 {
     Q_OBJECT
+    Q_PROPERTY(QRectF baselineRect READ baselineRect WRITE setBaselineRect NOTIFY baselineRectChanged)
     Q_PROPERTY(double startAngle READ startAngle WRITE setStartAngle NOTIFY startAngleChanged)
     Q_PROPERTY(double spanAngle READ spanAngle WRITE setSpanAngle NOTIFY spanAngleChanged)
 
 public:
     CircularScale(QDeclarativeItem* parent = 0);
+
+    const QRectF& baselineRect() const;
+    void setBaselineRect(const QRectF& rect);
 
     double startAngle() const;
     void setStartAngle(double angle);
@@ -19,6 +23,7 @@ public:
     void setSpanAngle(double span);
 
 signals:
+    void baselineRectChanged(const QRectF& rect);
     void startAngleChanged(double angle);
     void spanAngleChanged(double span);
 
@@ -27,6 +32,7 @@ protected:
     virtual QPainterPath buildPath(const QRectF& rect) const;
 
 private:
+    QRectF m_baselineRect;
     double m_startAngle;
     double m_spanAngle;
 };

@@ -9,7 +9,7 @@ Item {
     property real value: 0
     property real startAngle: 145
     property real spanAngle: 250
-    property real scalePos: 0.93
+    property real scalePos: 0.63
     property real tickStep: 5
     property real thickness: 4
     property bool animated: true
@@ -47,19 +47,11 @@ Item {
         maximum: gauge.maximum
         data: [[87.5, "warning"], [92.5, "danger"], [97.5, "beware"]]
     }
-/*
-    Rectangle {
-        anchors.centerIn: parent
-        width: scale2.width
-        height: scale2.height
-        color: "green"
-    }*/
 
     CircularScale {
         id: scale1
         anchors.centerIn: parent
-        width: parent.width * scalePos
-        height: parent.height * scalePos
+        baselineRect: Qt.rect(0, 0, gauge.width * scalePos, gauge.height * scalePos)
         minimum: gauge.minimum
         maximum: gauge.middle
         startAngle: gauge.startAngle
@@ -76,8 +68,7 @@ Item {
     CircularScale {
         id: scale2
         anchors.centerIn: parent
-        width: scale1.width
-        height: scale1.height
+        baselineRect: Qt.rect(0, 0, gauge.width * scalePos, gauge.height * scalePos)
         minimum: gauge.middle
         maximum: gauge.maximum
         startAngle: scale1.startAngle + scale1.spanAngle
@@ -94,8 +85,7 @@ Item {
     CircularScale {
         id: scale3
         anchors.centerIn: parent
-        width: scale2.width
-        height: scale2.height
+        baselineRect: Qt.rect(0, 0, gauge.width * scalePos, gauge.height * scalePos)
         minimum: scale2.minimum
         maximum: scale2.maximum
         startAngle: scale2.startAngle
@@ -104,8 +94,8 @@ Item {
         color: "orange"
         beginningTickVisible: false
         endingTickVisible: false
-        thickness: gauge.thickness
-        baselineVisible: false
+        thickness: gauge.thickness * 0.5
+        baselineVisible: true
         labelsVisible: true
         flipTicks: true
         smooth: true

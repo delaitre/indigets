@@ -3,10 +3,27 @@
 
 CircularScale::CircularScale(QDeclarativeItem* parent)
     : AbstractScale(parent)
+    , m_baselineRect(QPointF(0, 0), implicitSize())
     , m_startAngle(215)
     , m_spanAngle(250)
 {
 
+}
+
+const QRectF& CircularScale::baselineRect() const
+{
+    return m_baselineRect;
+}
+
+void CircularScale::setBaselineRect(const QRectF& rect)
+{
+    QRectF normalized = rect.normalized();
+    if (normalized != m_baselineRect)
+    {
+        m_baselineRect = normalized;
+        rebuild();
+        emit baselineRectChanged(m_baselineRect);
+    }
 }
 
 double CircularScale::startAngle() const
@@ -45,8 +62,6 @@ QSizeF CircularScale::implicitSize() const
     double vOffset = 0.;
 
     double baselineOffset = baselineVisible() ? thickness() : 0.;
-    hOffset += baselineOffset;
-    vOffset += baselineOffset;
 
     if (!flipTicks())
     {
@@ -73,9 +88,10 @@ QSizeF CircularScale::implicitSize() const
         }
     }
 
-    double size = qMax(hOffset, vOffset);
+    double width = m_baselineRect.width() + baselineOffset + hOffset * 2;
+    double height = m_baselineRect.height() + baselineOffset + vOffset * 2;
 
-    return QSizeF(size, size);
+    return QSizeF(width, height);
 }
 
 QPainterPath CircularScale::buildPath(const QRectF& rect) const
@@ -83,12 +99,8 @@ QPainterPath CircularScale::buildPath(const QRectF& rect) const
     int start = 360 - qRound(m_startAngle);
     int span = qRound(-m_spanAngle);
 
-    double offset = baselineVisible() ? thickness() * 0.5 : 0.;
-    if (!flipTicks())
-        offset = implicitWidth() - offset;
-
-    QRectF adjustedRect = rect.adjusted(offset, offset, -offset, -offset);
-
+    QRectF adjustedRect = m_baselineRect;
+    adjustedRect.moveCenter(rect.center());
     QPainterPath path;
     path.arcMoveTo(adjustedRect, start);
     path.arcTo(adjustedRect, start, span);
