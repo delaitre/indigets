@@ -9,15 +9,13 @@ Item {
     property real value: 0
     property real startAngle: 145
     property real spanAngle: 250
-    property real scalePos: 0.63
+    property real baselineRadius: 150
     property real tickStep: 5
     property real thickness: 4
     property bool animated: true
 
-    width: 100
-    height: 100
-
-    onValueChanged: { needle.value = value }
+    width: rotator.width + 40
+    height: rotator.height + 40
 
     Image {
         id: background
@@ -50,8 +48,8 @@ Item {
 
     CircularScale {
         id: scale1
-        anchors.centerIn: parent
-        baselineRect: Qt.rect(0, 0, gauge.width * scalePos, gauge.height * scalePos)
+        anchors.centerIn: gauge
+        baselineRect: Qt.rect(0, 0, baselineRadius, baselineRadius)
         minimum: gauge.minimum
         maximum: gauge.middle
         startAngle: gauge.startAngle
@@ -67,8 +65,8 @@ Item {
 
     CircularScale {
         id: scale2
-        anchors.centerIn: parent
-        baselineRect: Qt.rect(0, 0, gauge.width * scalePos, gauge.height * scalePos)
+        anchors.centerIn: gauge
+        baselineRect: Qt.rect(0, 0, baselineRadius, baselineRadius)
         minimum: gauge.middle
         maximum: gauge.maximum
         startAngle: scale1.startAngle + scale1.spanAngle
@@ -84,8 +82,8 @@ Item {
 
     CircularScale {
         id: scale3
-        anchors.centerIn: parent
-        baselineRect: Qt.rect(0, 0, gauge.width * scalePos, gauge.height * scalePos)
+        anchors.centerIn: gauge
+        baselineRect: Qt.rect(0, 0, baselineRadius, baselineRadius)
         minimum: scale2.minimum
         maximum: scale2.maximum
         startAngle: scale2.startAngle
@@ -101,52 +99,29 @@ Item {
         smooth: true
     }
 
-    function angleForValue(v) {
-        var scale;
-        if (v >= scale1.minimum && v <= scale1.maximum)
-            scale = scale1;
-        else
-            scale = scale2;
-
-        var pos = scale.pointAtValue(v);
-        pos.x += scale.x;
-        pos.y += scale.y;
-
-        var center = Qt.point(gauge.width * 0.5, gauge.height * 0.5);
-
-        return Gics.angle(center, pos);
-    }
-
     Image {
-        property real value: 0
-
         id: needle
         source: "../resources/gauge_needle.svg"
-        width: parent.width * 0.5
-        height: parent.height * 0.07
+        width: baselineRadius * 0.5
+        height: baselineRadius * 0.07
         sourceSize.width: width
         sourceSize.height: height
-        transform: [
-            Translate {
-                x: -needle.width * 0.279654
-                y: -needle.height * 0.5
-            },
-            Rotation {
-                angle: angleForValue(needle.value)
-            },
-            Translate {
-                x: gauge.width * 0.5
-                y: gauge.height * 0.5
-            }
-        ]
         smooth: true
+    }
 
-        Behavior on value {
-            enabled: gauge.animated
-            NumberAnimation {
-                duration: 400//180
-            }
-        }
+    Rotator {
+        id: rotator
+        scale: scale1
+        pointer: needle
+        value: gauge.value
+        pointerOriginX: needle.width * 0.279654
+        pointerOriginY: needle.height * 0.5
+        scaleOriginX: gauge.width * 0.5
+        scaleOriginY: gauge.height * 0.5
+        pointerWidth: needle.width
+        pointerHeight: needle.height
+
+        Behavior on value { NumberAnimation { duration: 400 } }
     }
 
     Image {

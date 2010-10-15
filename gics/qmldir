@@ -4,5 +4,6 @@ Led 1.0 components/Led.qml
 SquareButton 1.0 components/SquareButton.qml
 CircularButton 1.0 components/CircularButton.qml
 Tank 1.0 components/Tank.qml
+Rotator 1.0 components/Rotator.qml
 Gauge 1.0 components/Gauge.qml
 plugin gics /home/delaitre/src/build/indigets-debug/gics/lib

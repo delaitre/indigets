@@ -3,8 +3,8 @@ import Qt 4.7
 
 Rectangle {
     id: root
-    width: 200
-    height: 200
+    width: 600
+    height: 400
 
     gradient: Gradient {
         GradientStop { position: 0.0; color: "#ff525252" }
@@ -22,56 +22,10 @@ Rectangle {
 
             Gauge {
                 id: gauge
-                width: parent.width
-                height: parent.height - 40
+                baselineRadius: 150
             }
 
-            Item {
-                width:  parent.width
-                height:  20
-
-                Label {
-                    id: gaugeLabel
-                    text: "Value"
-                    width: 50
-                    height: parent.height
-                }
-
-                Field {
-                    id: gaugeValue
-                    width: 60
-                    height: gaugeLabel.height
-                    anchors.left: gaugeLabel.right
-                    validator: DoubleValidator { bottom: gauge.minimum; top: gauge.maximum }
-                    onTextChanged: if (acceptableInput) gauge.value = text
-                    text: gauge.value
-                }
-
-
-                SquareButton {
-                    id: buttonGauge
-                    width: 100
-                    height: gaugeLabel.height
-                    anchors.left: gaugeValue.right
-                    anchors.leftMargin: 4
-                    label.text: "Start / Stop"
-                    checkable: true
-                    onClicked: { gaugeTimer.running = isDown }
-                }
-
-                Timer {
-                    id: gaugeTimer
-                    interval: 1000
-                    running: false
-                    repeat: true
-                    onTriggered: {
-                        if (gauge.value == gauge.minimum)
-                            gauge.value = gauge.maximum
-                        else if (gauge.value == gauge.maximum)
-                            gauge.value = gauge.minimum
-                    }
-                }
-            }
+            ValueChanger { subject: gauge }
         }
 
         Column {
@@ -81,56 +35,10 @@ Rectangle {
 
             Gauge {
                 id: gauge2
-                width: parent.width
-                height: parent.height - 40
+                baselineRadius: 200
             }
 
-            Item {
-                width:  parent.width
-                height:  20
-
-                Label {
-                    id: gaugeLabel2
-                    text: "Value"
-                    width: 50
-                    height: parent.height
-                }
-
-                Field {
-                    id: gaugeValue2
-                    width: 60
-                    height: gaugeLabel2.height
-                    anchors.left: gaugeLabel2.right
-                    validator: DoubleValidator { bottom: gauge2.minimum; top: gauge2.maximum }
-                    onTextChanged: if (acceptableInput) gauge2.value = text
-                    text: gauge2.value
-                }
-
-
-                SquareButton {
-                    id: buttonGauge2
-                    width: 100
-                    height: gaugeLabel2.height
-                    anchors.left: gaugeValue2.right
-                    anchors.leftMargin: 4
-                    label.text: "Start / Stop"
-                    checkable: true
-                    onClicked: { gaugeTimer2.running = isDown }
-                }
-
-                Timer {
-                    id: gaugeTimer2
-                    interval: 1000
-                    running: false
-                    repeat: true
-                    onTriggered: {
-                        if (gauge2.value == gauge2.minimum)
-                            gauge2.value = gauge2.maximum
-                        else if (gauge2.value == gauge2.maximum)
-                            gauge2.value = gauge2.minimum
-                    }
-                }
-            }
+            ValueChanger { subject: gauge2 }
         }
 
         Column {
@@ -196,9 +104,6 @@ Rectangle {
                 labelsVisible: true
                 flipTicks: false
                 orientation: LinearScale.Vertical
-
-                Rectangle { anchors.fill: parent; z: -1; color: "lightBlue" }
-                Rectangle { x: 0; y: 0; width: 10; height: tankScale.baselineLength; color: "orange" }
             }
 
             Tank {
@@ -214,55 +119,13 @@ Rectangle {
                 }
 
                 Behavior on to { NumberAnimation { duration: 400 } }
-
-                Rectangle { anchors.fill: parent; z: -1; color: "blue" }
             }
 
-            Item {
-                width:  parent.width
-                height:  20
-
-                Label {
-                    id: tankLabel
-                    text: "Value"
-                    width: 50
-                    height: parent.height
-                }
-
-                Field {
-                    id: tankValue
-                    width: 60
-                    height: tankLabel.height
-                    anchors.left: tankLabel.right
-                    validator: DoubleValidator { bottom: tank.scale.minimum; top: tank.scale.maximum }
-                    text: tank.to
-                    readOnly: buttonTank.checked
-
-                    Keys.onReturnPressed: { if (acceptableInput) tank.to = text }
-                }
-
-                SquareButton {
-                    id: buttonTank
-                    width: 100
-                    height: tankLabel.height
-                    anchors.left: tankValue.right
-                    anchors.leftMargin: 4
-                    label.text: "Start / Stop"
-                    checkable: true
-                    onClicked: { tankTimer.running = isDown }
-                }
-
-                Timer {
-                    id: tankTimer
-                    interval: 1000
-                    running: false
-                    repeat: true
-                    onTriggered: {
-                        if (tank.to == tank.scale.minimum)
-                            tank.to = tank.scale.maximum
-                        else if (tank.to == tank.scale.maximum)
-                            tank.to = tank.scale.minimum
-                    }
+            ValueChanger {
+                subject: QtObject {
+                    property alias value: tank.to
+                    property alias minimum: tankScale.minimum
+                    property alias maximum: tankScale.maximum
                 }
             }
         }
@@ -294,8 +157,6 @@ Rectangle {
                 labelsVisible: true
                 flipTicks: false
                 orientation: LinearScale.Horizontal
-
-                Rectangle { anchors.fill: parent; z: -1; color: "lightBlue" }
             }
 
             Tank {
@@ -311,55 +172,67 @@ Rectangle {
                 }
 
                 Behavior on to { NumberAnimation { duration: 400 } }
-
-                Rectangle { anchors.fill: parent; z: -1; color: "blue" }
             }
 
-            Item {
-                width:  parent.width
-                height:  20
-
-                Label {
-                    id: tankLabel2
-                    text: "Value"
-                    width: 50
-                    height: parent.height
+            ValueChanger {
+                subject: QtObject {
+                    property alias value: tank2.to
+                    property alias minimum: tankScale2.minimum
+                    property alias maximum: tankScale2.maximum
                 }
+            }
+        }
 
-                Field {
-                    id: tankValue2
-                    width: 60
-                    height: tankLabel2.height
-                    anchors.left: tankLabel2.right
-                    validator: DoubleValidator { bottom: tank2.scale.minimum; top: tank2.scale.maximum }
-                    text: tank2.to
-                    readOnly: buttonTank2.checked
+        Column {
+            spacing: 4
+            width:  300
+            height:  300
 
-                    Keys.onReturnPressed: { if (acceptableInput) tank2.to = text }
-                }
+            StepScaleEngine {
+                id: rotatorEngine
+                minimum: -40
+                maximum: 60
+                step: 10
+            }
 
-                SquareButton {
-                    id: buttonTank2
-                    width: 100
-                    height: tankLabel2.height
-                    anchors.left: tankValue2.right
-                    anchors.leftMargin: 4
-                    label.text: "Start / Stop"
-                    checkable: true
-                    onClicked: { tankTimer2.running = isDown }
-                }
+            CircularScale {
+                id: rotatorScale
+                baselineRect: Qt.rect(0, 0, 100, 100)
+                minimum: rotatorEngine.minimum
+                maximum: rotatorEngine.maximum
+                startAngle: 145
+                spanAngle: 250
+                engine: rotatorEngine
+                color: "white"
+                beginningTickVisible: true
+                endingTickVisible: true
+                thickness: 3
+                flipTicks: false
+                smooth: true
+            }
 
-                Timer {
-                    id: tankTimer2
-                    interval: 1000
-                    running: false
-                    repeat: true
-                    onTriggered: {
-                        if (tank2.to == tank2.scale.minimum)
-                            tank2.to = tank2.scale.maximum
-                        else if (tank2.to == tank2.scale.maximum)
-                            tank2.to = tank2.scale.minimum
-                    }
+            Rectangle { id: needle; color: "green"; width: 50; height: 2 }
+
+            Rotator {
+                id: rotator
+                scale: rotatorScale
+                pointer: needle
+                value: 0
+                pointerOriginX: 0
+                pointerOriginY: needle.height * 0.5
+                scaleOriginX: rotatorScale.width * 0.5
+                scaleOriginY: rotatorScale.height * 0.5
+                pointerWidth: needle.width
+                pointerHeight: needle.height
+
+                Behavior on value { NumberAnimation { duration: 400 } }
+            }
+
+            ValueChanger {
+                subject: QtObject {
+                    property alias value: rotator.value
+                    property alias minimum: rotatorScale.minimum
+                    property alias maximum: rotatorScale.maximum
                 }
             }
         }

@@ -20,10 +20,12 @@ QML_FILES = \
     components/Led.qml \
     components/SquareButton.qml \
     components/CircularButton.qml \
+    components/Rotator.qml \
     components/Gauge.qml \
     components/Tank.qml
 
 OTHER_FILES = \
     $$QML_FILES \
     qmldir \
-    examples/demo1.qml
+    examples/demo1.qml \
+    examples/ValueChanger.qml

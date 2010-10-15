@@ -24,7 +24,7 @@ void Plugin::registerTypes(const char* uri)
     qmlRegisterType<AbstractScaleEngine>();
     qmlRegisterType<StepScaleEngine>(uri, 1, 0, "StepScaleEngine");
     qmlRegisterType<FixedScaleEngine>(uri, 1, 0, "FixedScaleEngine");
-    qmlRegisterType<AbstractScale>();
+    qmlRegisterInterface<AbstractScale>("AbstractScale");
     qmlRegisterType<LinearScale>(uri, 1, 0, "LinearScale");
     qmlRegisterType<CircularScale>(uri, 1, 0, "CircularScale");
 }

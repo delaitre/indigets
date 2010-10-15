@@ -18,8 +18,8 @@ Item {
     Item {
         id: fillWrapper
         z: 2
-        property real xScale: 1;
-        property real yScale: 1;
+        property real xScale: 1
+        property real yScale: 1
         transform: Scale {
             origin.x: fillWrapper.width * 0.5
             origin.y: fillWrapper.height * 0.5
@@ -35,7 +35,7 @@ Item {
 
     onScaleChanged: {
         scale.parent = tank;
-        scale.z = 1
+        scale.z = 1;
         scale.x = 0;
         scale.y = 0;
         update();
