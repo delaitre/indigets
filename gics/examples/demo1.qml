@@ -174,10 +174,47 @@ Rectangle {
             width:  200
             height:  400
 
+            StepScaleEngine {
+                id: tankMajorEngine
+                minimum: -50
+                maximum: 40
+                step: 10
+            }
+
+            LinearScale {
+                id: tankScale
+                minimum: tankMajorEngine.minimum
+                maximum: tankMajorEngine.maximum
+                engine: tankMajorEngine
+                color: "white"
+                beginningTickVisible: true
+                endingTickVisible: true
+                thickness: 2
+                baselineVisible: true
+                ticksVisible: true
+                labelsVisible: true
+                flipTicks: false
+                orientation: LinearScale.Vertical
+
+                Rectangle { anchors.fill: parent; z: -1; color: "lightBlue" }
+            }
+
             Tank {
                 id: tank
                 width: parent.width
                 height: parent.height - 40
+                scale: tankScale
+                from: -20
+                fillElement: Rectangle {
+                    gradient: Gradient {
+                        GradientStop { position: 0.0; color: "green" }
+                        GradientStop { position: 1.0; color: "lightGreen" }
+                    }
+                }
+
+                Behavior on to { NumberAnimation { duration: 400 } }
+
+                Rectangle { anchors.fill: parent; z: -1; color: "blue" }
             }
 
             Item {
@@ -196,11 +233,12 @@ Rectangle {
                     width: 60
                     height: tankLabel.height
                     anchors.left: tankLabel.right
-                    validator: DoubleValidator { bottom: tank.minimum; top: tank.maximum }
-                    onTextChanged: if (acceptableInput) tank.value = text
-                    text: tank.value
-                }
+                    validator: DoubleValidator { bottom: tank.scale.minimum; top: tank.scale.maximum }
+                    text: tank.to
+                    readOnly: buttonTank.checked
 
+                    Keys.onReturnPressed: { if (acceptableInput) tank.to = text }
+                }
 
                 SquareButton {
                     id: buttonTank
@@ -219,10 +257,10 @@ Rectangle {
                     running: false
                     repeat: true
                     onTriggered: {
-                        if (tank.value == tank.minimum)
-                            tank.value = tank.maximum
-                        else if (tank.value == tank.maximum)
-                            tank.value = tank.minimum
+                        if (tank.to == tank.scale.minimum)
+                            tank.to = tank.scale.maximum
+                        else if (tank.to == tank.scale.maximum)
+                            tank.to = tank.scale.minimum
                     }
                 }
             }
@@ -233,11 +271,47 @@ Rectangle {
             width:  400
             height:  200
 
+            StepScaleEngine {
+                id: tankMajorEngine2
+                minimum: -50
+                maximum: 40
+                step: 10
+            }
+
+            LinearScale {
+                id: tankScale2
+                minimum: tankMajorEngine2.minimum
+                maximum: tankMajorEngine2.maximum
+                engine: tankMajorEngine2
+                color: "white"
+                beginningTickVisible: true
+                endingTickVisible: true
+                thickness: 2
+                baselineVisible: true
+                ticksVisible: true
+                labelsVisible: true
+                flipTicks: false
+                orientation: LinearScale.Horizontal
+
+                Rectangle { anchors.fill: parent; z: -1; color: "lightBlue" }
+            }
+
             Tank {
                 id: tank2
                 width: parent.width
                 height: parent.height - 40
-                orientation: LinearScale.Horizontal
+                scale: tankScale2
+                from: -20
+                fillElement: Rectangle {
+                    gradient: Gradient {
+                        GradientStop { position: 0.0; color: "green" }
+                        GradientStop { position: 1.0; color: "lightGreen" }
+                    }
+                }
+
+                Behavior on to { NumberAnimation { duration: 400 } }
+
+                Rectangle { anchors.fill: parent; z: -1; color: "blue" }
             }
 
             Item {
@@ -256,11 +330,12 @@ Rectangle {
                     width: 60
                     height: tankLabel2.height
                     anchors.left: tankLabel2.right
-                    validator: DoubleValidator { bottom: tank2.minimum; top: tank2.maximum }
-                    onTextChanged: if (acceptableInput) tank2.value = text
-                    text: tank2.value
-                }
+                    validator: DoubleValidator { bottom: tank2.scale.minimum; top: tank2.scale.maximum }
+                    text: tank2.to
+                    readOnly: buttonTank2.checked
 
+                    Keys.onReturnPressed: { if (acceptableInput) tank2.to = text }
+                }
 
                 SquareButton {
                     id: buttonTank2
@@ -279,10 +354,10 @@ Rectangle {
                     running: false
                     repeat: true
                     onTriggered: {
-                        if (tank2.value == tank2.minimum)
-                            tank2.value = tank2.maximum
-                        else if (tank2.value == tank2.maximum)
-                            tank2.value = tank2.minimum
+                        if (tank2.to == tank2.scale.minimum)
+                            tank2.to = tank2.scale.maximum
+                        else if (tank2.to == tank2.scale.maximum)
+                            tank2.to = tank2.scale.minimum
                     }
                 }
             }

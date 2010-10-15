@@ -3,58 +3,97 @@ import Qt 4.7
 
 Item {
     id: tank
-    property real minimum: 0
-    property real maximum: 100
-    property real value: 0
-    property real tickStep: 5
-    property real thickness: 2
-    property alias orientation: scale1.orientation
+    property LinearScale scale
+    property Item fillElement
+    property real from: 0
+    property real to: 0
+    property real spacing: 2
 
     width: 80
     height: 200
 
-    Rectangle {
-        anchors.fill: parent
-        color: "blue"
+    Item {
+        id: fillWrapper
+        z: 2
+        property real xScale: 1;
+        property real yScale: 1;
+        transform: Scale {
+            origin.x: fillWrapper.width * 0.5
+            origin.y: fillWrapper.height * 0.5
+            xScale: fillWrapper.xScale
+            yScale: fillWrapper.yScale
+        }
     }
 
-    StepScaleEngine {
-        id: majorEngine
-        minimum: tank.minimum
-        maximum: tank.maximum
-        step: tank.tickStep
+    onWidthChanged: { updateScaleWidth() }
+
+    function updateScaleWidth() {
+        if (!scale)
+            return;
+        scale.width = (scale.orientation == LinearScale.Horizontal) ? tank.width : scale.minimumWidth;
     }
 
-    Rectangle {
-        anchors.fill: scale1
-        color: "lightBlue"
+    onHeightChanged:  { updateScaleHeight() }
+
+    function updateScaleHeight() {
+        if (!scale)
+            return;
+        scale.height = (scale.orientation == LinearScale.Horizontal) ? scale.minimumHeight : tank.height;
     }
 
-    LinearScale {
-        id: scale1
-        width: (orientation == LinearScale.Horizontal) ? parent.width : minimumWidth
-        height: (orientation == LinearScale.Horizontal) ? minimumHeight : parent.height
-        minimum: tank.minimum
-        maximum: tank.maximum
-        engine: majorEngine
-        color: "white"
-        beginningTickVisible: true
-        endingTickVisible: true
-        thickness: tank.thickness
-        baselineVisible: true
-        ticksVisible: true
-        labelsVisible: true
-        flipTicks: false
+    onScaleChanged: {
+        scale.parent = tank;
+        scale.z = 1
+        scale.x = 0;
+        scale.y = 0;
+        updateScaleWidth();
+        updateScaleHeight();
+        update();
     }
 
-    Rectangle {
-        id: fill
+    onFillElementChanged: {
+        fillElement.parent = fillWrapper;
+        fillElement.anchors.fill = fillWrapper;
+        update()
+    }
 
-        x: (orientation == LinearScale.Horizontal) ? scale1.pointAtValue(0).x : scale1.width
-        y: (orientation == LinearScale.Horizontal) ? scale1.height : scale1.pointAtValue(tank.value).y
-        width: (orientation == LinearScale.Horizontal) ? scale1.pointAtValue(tank.value).x - x : parent.width - x
-        height: (orientation == LinearScale.Horizontal) ? parent.height - y : scale1.pointAtValue(0).y - y
+    onFromChanged: { update() }
+    onToChanged: { update() }
 
-        color: "green"
+    function update() {
+        if (!scale || !fillElement)
+            return;
+
+        var x, y, w, h;
+        if (scale.orientation == LinearScale.Horizontal) {
+            x = scale.pointAtValue(tank.from).x;
+            y = scale.height + tank.spacing;
+            w = scale.pointAtValue(tank.to).x - x;
+            h = tank.height - y;
+        } else {
+            x = scale.width + tank.spacing;
+            y = scale.pointAtValue(tank.from).y;
+            w = tank.width - x;
+            h = scale.pointAtValue(tank.to).y - y;
+        }
+
+        if (w < 0) {
+            fillWrapper.xScale = -1;
+            w = -w;
+            x = x - w;
+        } else
+            fillWrapper.xScale = 1;
+
+        if (h < 0) {
+            fillWrapper.yScale = -1;
+            h = -h;
+            y = y - h;
+        } else
+            fillWrapper.yScale = 1;
+
+        fillWrapper.x = x;
+        fillWrapper.y = y;
+        fillWrapper.width = w;
+        fillWrapper.height = h;
     }
 }
