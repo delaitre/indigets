@@ -183,6 +183,7 @@ Rectangle {
 
             LinearScale {
                 id: tankScale
+                baselineLength: 280
                 minimum: tankMajorEngine.minimum
                 maximum: tankMajorEngine.maximum
                 engine: tankMajorEngine
@@ -197,14 +198,14 @@ Rectangle {
                 orientation: LinearScale.Vertical
 
                 Rectangle { anchors.fill: parent; z: -1; color: "lightBlue" }
+                Rectangle { x: 0; y: 0; width: 10; height: tankScale.baselineLength; color: "orange" }
             }
 
             Tank {
                 id: tank
-                width: parent.width
-                height: parent.height - 40
                 scale: tankScale
                 from: -20
+                fillWidth: 20
                 fillElement: Rectangle {
                     gradient: Gradient {
                         GradientStop { position: 0.0; color: "green" }
@@ -280,6 +281,7 @@ Rectangle {
 
             LinearScale {
                 id: tankScale2
+                baselineLength: 160
                 minimum: tankMajorEngine2.minimum
                 maximum: tankMajorEngine2.maximum
                 engine: tankMajorEngine2
@@ -298,10 +300,9 @@ Rectangle {
 
             Tank {
                 id: tank2
-                width: parent.width
-                height: parent.height - 40
                 scale: tankScale2
                 from: -20
+                fillWidth: 40
                 fillElement: Rectangle {
                     gradient: Gradient {
                         GradientStop { position: 0.0; color: "green" }

@@ -8,6 +8,7 @@ class LinearScale : public AbstractScale
     Q_OBJECT
     Q_ENUMS(Orientation)
     Q_PROPERTY(Orientation orientation READ orientation WRITE setOrientation NOTIFY orientationChanged)
+    Q_PROPERTY(double baselineLength READ baselineLength WRITE setBaselineLength NOTIFY baselineLengthChanged)
 
 public:
     enum Orientation
@@ -22,8 +23,12 @@ public:
     Orientation orientation() const;
     void setOrientation(Orientation orientation);
 
+    double baselineLength() const;
+    void setBaselineLength(double length);
+
 signals:
     void orientationChanged(Orientation orientation);
+    void baselineLengthChanged(double length);
 
 protected:
     virtual QSizeF implicitSize() const;
@@ -31,6 +36,7 @@ protected:
 
 private:
     Orientation m_orientation;
+    double m_baselineLength;
 };
 
 #endif // LINEARSCALE_HPP

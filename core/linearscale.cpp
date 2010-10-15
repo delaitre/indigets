@@ -4,6 +4,7 @@
 LinearScale::LinearScale(QDeclarativeItem* parent)
     : AbstractScale(parent)
     , m_orientation(LinearScale::Vertical)
+    , m_baselineLength(0)
 {
 
 }
@@ -20,6 +21,22 @@ void LinearScale::setOrientation(LinearScale::Orientation orientation)
         m_orientation = orientation;
         rebuild();
         emit orientationChanged(m_orientation);
+    }
+}
+
+double LinearScale::baselineLength() const
+{
+    return m_baselineLength;
+}
+
+void LinearScale::setBaselineLength(double length)
+{
+    length = qMax(length, 0.);
+    if (length != m_baselineLength)
+    {
+        m_baselineLength = length;
+        rebuild();
+        emit baselineLengthChanged(m_baselineLength);
     }
 }
 
@@ -49,13 +66,13 @@ QSizeF LinearScale::implicitSize() const
     double height = 0;
     if (m_orientation == Horizontal)
     {
-        width = labelOffset.width();
+        width = m_baselineLength + labelOffset.width();
         height = baselineOffset + tickOffset + labelOffset.height();
     }
     else
     {
         width = baselineOffset + tickOffset + labelOffset.width();
-        height = labelOffset.height();
+        height = m_baselineLength + labelOffset.height();
     }
 
     return QSizeF(width, height);
@@ -67,23 +84,29 @@ QPainterPath LinearScale::buildPath(const QRectF& rect) const
 
     if (m_orientation == Horizontal)
     {
-        double xOffset = implicitWidth() * 0.5;
+        double xOffset = (rect.width() - m_baselineLength) * 0.5;
         double yOffset = thickness() * 0.5;
         if (!flipTicks())
             yOffset = implicitHeight() - yOffset;
 
-        path.moveTo(rect.topLeft() + QPointF(xOffset, yOffset));
-        path.lineTo(rect.topRight() + QPointF(-xOffset, yOffset));
+        QPointF start = rect.topLeft() + QPointF(xOffset, yOffset);
+        QPointF end = rect.topRight() + QPointF(-xOffset, yOffset);
+
+        path.moveTo(start);
+        path.lineTo(end);
     }
     else
     {
         double xOffset = thickness() * 0.5;
-        double yOffset = implicitHeight() * 0.5;
+        double yOffset = (rect.height() - m_baselineLength) * 0.5;
         if (!flipTicks())
             xOffset = implicitWidth() - xOffset;
 
-        path.moveTo(rect.bottomLeft() + QPointF(xOffset, -yOffset));
-        path.lineTo(rect.topLeft() + QPointF(xOffset, yOffset));
+        QPointF start = rect.bottomLeft() + QPointF(xOffset, -yOffset);
+        QPointF end = rect.topLeft() + QPointF(xOffset, yOffset);
+
+        path.moveTo(start);
+        path.lineTo(end);
     }
 
     return path;

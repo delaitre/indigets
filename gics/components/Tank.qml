@@ -8,9 +8,12 @@ Item {
     property real from: 0
     property real to: 0
     property real spacing: 2
+    property real fillWidth: 20
 
-    width: 80
-    height: 200
+    x: childrenRect.x
+    y: childrenRect.y
+    width: childrenRect.width
+    height: childrenRect.height
 
     Item {
         id: fillWrapper
@@ -25,29 +28,16 @@ Item {
         }
     }
 
-    onWidthChanged: { updateScaleWidth() }
-
-    function updateScaleWidth() {
-        if (!scale)
-            return;
-        scale.width = (scale.orientation == LinearScale.Horizontal) ? tank.width : scale.minimumWidth;
-    }
-
-    onHeightChanged:  { updateScaleHeight() }
-
-    function updateScaleHeight() {
-        if (!scale)
-            return;
-        scale.height = (scale.orientation == LinearScale.Horizontal) ? scale.minimumHeight : tank.height;
-    }
+    onFromChanged: { update() }
+    onToChanged: { update() }
+    onSpacingChanged: { update() }
+    onFillWidthChanged: { update() }
 
     onScaleChanged: {
         scale.parent = tank;
         scale.z = 1
         scale.x = 0;
         scale.y = 0;
-        updateScaleWidth();
-        updateScaleHeight();
         update();
     }
 
@@ -56,9 +46,6 @@ Item {
         fillElement.anchors.fill = fillWrapper;
         update()
     }
-
-    onFromChanged: { update() }
-    onToChanged: { update() }
 
     function update() {
         if (!scale || !fillElement)
@@ -69,11 +56,11 @@ Item {
             x = scale.pointAtValue(tank.from).x;
             y = scale.height + tank.spacing;
             w = scale.pointAtValue(tank.to).x - x;
-            h = tank.height - y;
+            h = tank.fillWidth;
         } else {
             x = scale.width + tank.spacing;
             y = scale.pointAtValue(tank.from).y;
-            w = tank.width - x;
+            w = tank.fillWidth;
             h = scale.pointAtValue(tank.to).y - y;
         }
 
