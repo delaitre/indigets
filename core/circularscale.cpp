@@ -107,3 +107,22 @@ QPainterPath CircularScale::buildPath(const QRectF& rect) const
 
     return path;
 }
+
+QPainterPath CircularScale::subpath(double from, double to) const
+{
+    QPainterPath subpath;
+
+    QRectF rect = m_baselineRect;
+    rect.moveCenter(boundingRect().center());
+    QPointF fromPoint = path().pointAtPercent(from);
+    QPointF toPoint = path().pointAtPercent(to);
+    QPointF center = rect.center();
+
+    double fromAngle = QLineF(center, fromPoint).angle();
+    double toAngle = QLineF(center, toPoint).angle();
+
+    subpath.arcMoveTo(rect, fromAngle);
+    subpath.arcTo(rect, fromAngle, toAngle - fromAngle);
+
+    return subpath;
+}

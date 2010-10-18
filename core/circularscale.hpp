@@ -30,6 +30,7 @@ signals:
 protected:
     virtual QSizeF implicitSize() const;
     virtual QPainterPath buildPath(const QRectF& rect) const;
+    virtual QPainterPath subpath(double from, double to) const;
 
 private:
     QRectF m_baselineRect;

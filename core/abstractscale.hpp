@@ -97,6 +97,7 @@ protected:
     void rebuild();
     virtual QSizeF implicitSize() const = 0;
     virtual QPainterPath buildPath(const QRectF& rect) const = 0;
+    virtual QPainterPath subpath(double from, double to) const = 0;
 
 private:
     void drawTick(double percent, const QString& label, QPainter* painter);

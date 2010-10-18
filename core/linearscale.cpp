@@ -111,3 +111,12 @@ QPainterPath LinearScale::buildPath(const QRectF& rect) const
 
     return path;
 }
+
+QPainterPath LinearScale::subpath(double from, double to) const
+{
+    QPainterPath subpath;
+    subpath.moveTo(path().pointAtPercent(from));
+    subpath.lineTo(path().pointAtPercent(to));
+
+    return subpath;
+}
