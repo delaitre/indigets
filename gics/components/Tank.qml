@@ -3,84 +3,95 @@ import Qt 4.7
 
 Item {
     id: tank
-    property LinearScale scale
-    property Item fillElement
-    property real from: 0
-    property real to: 0
-    property real spacing: 2
-    property real fillWidth: 20
+    property alias minimum: scale.minimum
+    property real middle: minimum + (maximum - minimum) * 0.7
+    property alias maximum: scale.maximum
+    property alias from: scaler.from
+    property alias to: scaler.to
+    property alias orientation: scale.orientation
 
-    x: childrenRect.x
-    y: childrenRect.y
-    width: childrenRect.width
-    height: childrenRect.height
-
-    Item {
-        id: fillWrapper
-        z: 2
-        property real xScale: 1
-        property real yScale: 1
-        transform: Scale {
-            origin.x: fillWrapper.width * 0.5
-            origin.y: fillWrapper.height * 0.5
-            xScale: fillWrapper.xScale
-            yScale: fillWrapper.yScale
-        }
+    LinearValueMapper {
+        id: valueMapper
+        minimum: tank.minimum
+        maximum: tank.maximum
     }
 
-    onFromChanged: { update() }
-    onToChanged: { update() }
-    onSpacingChanged: { update() }
-    onFillWidthChanged: { update() }
-
-    onScaleChanged: {
-        scale.parent = tank;
-        scale.z = 1;
-        scale.x = 0;
-        scale.y = 0;
-        update();
+    StepTickEngine {
+        id: ticks
+        step: 10
     }
 
-    onFillElementChanged: {
-        fillElement.parent = fillWrapper;
-        fillElement.anchors.fill = fillWrapper;
-        update()
+    LinearScale {
+        id: scale
+        anchors.fill: tank
+        minimum: 0
+        maximum: 100
+        orientation: LinearScale.Horizontal
+        mapper: valueMapper
+        zones: [
+            StandardScaleZone {
+                id: zone1
+                scale: scale
+                parent: scale
+                minimum: tank.minimum
+                maximum: tank.middle
+                tickEngine: ticks
+                color: "white"
+                baselineVisible: true
+                ticksVisible: true
+                labelsVisible: true
+                beginningTickVisible: true
+                endingTickVisible: false
+                thickness: 2
+                tickLength: 3
+                flipTicks: false
+                smooth: true
+            },
+
+            StandardScaleZone {
+                id: zone2
+                scale: scale
+                parent: scale
+                minimum: tank.middle
+                maximum: tank.maximum
+                tickEngine: ticks
+                color: "red"
+                baselineVisible: true
+                ticksVisible: true
+                labelsVisible: true
+                beginningTickVisible: true
+                endingTickVisible: true
+                thickness: 2
+                tickLength: 3
+                flipTicks: false
+                smooth: true
+            }
+        ]
     }
 
-    function update() {
-        if (!scale || !fillElement)
-            return;
+    Rectangle {
+        id: fill
+        color: "green"
+    }
 
-        var x, y, w, h;
-        if (scale.orientation == LinearScale.Horizontal) {
-            x = scale.pointAtValue(tank.from).x;
-            y = scale.height + tank.spacing;
-            w = scale.pointAtValue(tank.to).x - x;
-            h = tank.fillWidth;
-        } else {
-            x = scale.width + tank.spacing;
-            y = scale.pointAtValue(tank.from).y;
-            w = tank.fillWidth;
-            h = scale.pointAtValue(tank.to).y - y;
-        }
+    Scaler {
+        id: scaler
+        scale: scale
+        fillElement: fill
+        from: 0
+        to: 0
+        spacing: 2
+        fillWidth: 20
 
-        if (w < 0) {
-            fillWrapper.xScale = -1;
-            w = -w;
-            x = x - w;
-        } else
-            fillWrapper.xScale = 1;
+        Behavior on to { NumberAnimation { duration: 400 } }
+    }
 
-        if (h < 0) {
-            fillWrapper.yScale = -1;
-            h = -h;
-            y = y - h;
-        } else
-            fillWrapper.yScale = 1;
-
-        fillWrapper.x = x;
-        fillWrapper.y = y;
-        fillWrapper.width = w;
-        fillWrapper.height = h;
+    Image {
+        id: foreground
+        parent: fill.parent
+        anchors.fill: fill
+        source: (tank.orientation == LinearScale.Horizontal) ? "../resources/tank_hfg.svg" : "../resources/tank_vfg.svg"
+        sourceSize.width: width
+        sourceSize.height: height
     }
 }

@@ -1,29 +1,11 @@
 #include <circularscale.hpp>
-#include <abstractscaleengine.hpp>
 
 CircularScale::CircularScale(QDeclarativeItem* parent)
     : AbstractScale(parent)
-    , m_baselineRect(QPointF(0, 0), implicitSize())
     , m_startAngle(215)
     , m_spanAngle(250)
 {
 
-}
-
-const QRectF& CircularScale::baselineRect() const
-{
-    return m_baselineRect;
-}
-
-void CircularScale::setBaselineRect(const QRectF& rect)
-{
-    QRectF normalized = rect.normalized();
-    if (normalized != m_baselineRect)
-    {
-        m_baselineRect = normalized;
-        rebuild();
-        emit baselineRectChanged(m_baselineRect);
-    }
 }
 
 double CircularScale::startAngle() const
@@ -56,7 +38,7 @@ void CircularScale::setSpanAngle(double span)
     }
 }
 
-QSizeF CircularScale::implicitSize() const
+/*QSizeF CircularScale::implicitSize() const
 {
     double hOffset = 0.;
     double vOffset = 0.;
@@ -93,17 +75,16 @@ QSizeF CircularScale::implicitSize() const
 
     return QSizeF(width, height);
 }
-
-QPainterPath CircularScale::buildPath(const QRectF& rect) const
+*/
+QPainterPath CircularScale::buildPath() const
 {
+    QRectF rect = boundingRect();
     int start = 360 - qRound(m_startAngle);
     int span = qRound(-m_spanAngle);
 
-    QRectF adjustedRect = m_baselineRect;
-    adjustedRect.moveCenter(rect.center());
     QPainterPath path;
-    path.arcMoveTo(adjustedRect, start);
-    path.arcTo(adjustedRect, start, span);
+    path.arcMoveTo(rect, start);
+    path.arcTo(rect, start, span);
 
     return path;
 }
@@ -112,17 +93,14 @@ QPainterPath CircularScale::subpath(double from, double to) const
 {
     QPainterPath subpath;
 
-    QRectF rect = m_baselineRect;
-    rect.moveCenter(boundingRect().center());
-    QPointF fromPoint = path().pointAtPercent(from);
-    QPointF toPoint = path().pointAtPercent(to);
-    QPointF center = rect.center();
+    QRectF rect = boundingRect();
 
-    double fromAngle = QLineF(center, fromPoint).angle();
-    double toAngle = QLineF(center, toPoint).angle();
+    double ratio = to - from;
+    int start = 360 - qRound(m_startAngle + m_spanAngle * from);
+    int span = qRound(-m_spanAngle * ratio);
 
-    subpath.arcMoveTo(rect, fromAngle);
-    subpath.arcTo(rect, fromAngle, toAngle - fromAngle);
+    subpath.arcMoveTo(rect, start);
+    subpath.arcTo(rect, start, span);
 
     return subpath;
 }

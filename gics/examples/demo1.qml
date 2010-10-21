@@ -22,7 +22,8 @@ Rectangle {
 
             Gauge {
                 id: gauge
-                baselineRadius: 150
+                width: parent.width
+                height: parent.height - 20
             }
 
             ValueChanger { subject: gauge }
@@ -35,7 +36,8 @@ Rectangle {
 
             Gauge {
                 id: gauge2
-                baselineRadius: 200
+                width: parent.width
+                height: parent.height - 20
             }
 
             ValueChanger { subject: gauge2 }
@@ -82,50 +84,21 @@ Rectangle {
             width:  200
             height:  400
 
-            StepScaleEngine {
-                id: tankMajorEngine
-                minimum: -50
-                maximum: 40
-                step: 10
-            }
-
-            LinearScale {
-                id: tankScale
-                baselineLength: 280
-                minimum: tankMajorEngine.minimum
-                maximum: tankMajorEngine.maximum
-                engine: tankMajorEngine
-                color: "white"
-                beginningTickVisible: true
-                endingTickVisible: true
-                thickness: 2
-                baselineVisible: true
-                ticksVisible: true
-                labelsVisible: true
-                flipTicks: false
-                orientation: LinearScale.Vertical
-            }
-
             Tank {
                 id: tank
-                scale: tankScale
+                width: parent.width
+                height: parent.height - 20
+                orientation: LinearScale.Horizontal
+                minimum: -40
+                maximum: 40
                 from: -20
-                fillWidth: 20
-                fillElement: Rectangle {
-                    gradient: Gradient {
-                        GradientStop { position: 0.0; color: "green" }
-                        GradientStop { position: 1.0; color: "lightGreen" }
-                    }
-                }
-
-                Behavior on to { NumberAnimation { duration: 400 } }
             }
 
             ValueChanger {
                 subject: QtObject {
                     property alias value: tank.to
-                    property alias minimum: tankScale.minimum
-                    property alias maximum: tankScale.maximum
+                    property alias minimum: tank.minimum
+                    property alias maximum: tank.maximum
                 }
             }
         }
@@ -135,104 +108,21 @@ Rectangle {
             width:  400
             height:  200
 
-            StepScaleEngine {
-                id: tankMajorEngine2
-                minimum: -50
-                maximum: 40
-                step: 10
-            }
-
-            LinearScale {
-                id: tankScale2
-                baselineLength: 160
-                minimum: tankMajorEngine2.minimum
-                maximum: tankMajorEngine2.maximum
-                engine: tankMajorEngine2
-                color: "white"
-                beginningTickVisible: true
-                endingTickVisible: true
-                thickness: 2
-                baselineVisible: true
-                ticksVisible: true
-                labelsVisible: true
-                flipTicks: false
-                orientation: LinearScale.Horizontal
-            }
-
             Tank {
                 id: tank2
-                scale: tankScale2
+                width: parent.width
+                height: parent.height - 20
+                orientation: LinearScale.Vertical
+                minimum: -40
+                maximum: 40
                 from: -20
-                fillWidth: 40
-                fillElement: Rectangle {
-                    gradient: Gradient {
-                        GradientStop { position: 0.0; color: "green" }
-                        GradientStop { position: 1.0; color: "lightGreen" }
-                    }
-                }
-
-                Behavior on to { NumberAnimation { duration: 400 } }
             }
 
             ValueChanger {
                 subject: QtObject {
                     property alias value: tank2.to
-                    property alias minimum: tankScale2.minimum
-                    property alias maximum: tankScale2.maximum
-                }
-            }
-        }
-
-        Column {
-            spacing: 4
-            width:  300
-            height:  300
-
-            StepScaleEngine {
-                id: rotatorEngine
-                minimum: -40
-                maximum: 60
-                step: 10
-            }
-
-            CircularScale {
-                id: rotatorScale
-                baselineRect: Qt.rect(0, 0, 100, 100)
-                minimum: rotatorEngine.minimum
-                maximum: rotatorEngine.maximum
-                startAngle: 145
-                spanAngle: 250
-                engine: rotatorEngine
-                color: "white"
-                beginningTickVisible: true
-                endingTickVisible: true
-                thickness: 3
-                flipTicks: false
-                smooth: true
-            }
-
-            Rectangle { id: needle; color: "green"; width: 50; height: 2 }
-
-            Rotator {
-                id: rotator
-                scale: rotatorScale
-                pointer: needle
-                value: 0
-                pointerOriginX: 0
-                pointerOriginY: needle.height * 0.5
-                scaleOriginX: rotatorScale.width * 0.5
-                scaleOriginY: rotatorScale.height * 0.5
-                pointerWidth: needle.width
-                pointerHeight: needle.height
-
-                Behavior on value { NumberAnimation { duration: 400 } }
-            }
-
-            ValueChanger {
-                subject: QtObject {
-                    property alias value: rotator.value
-                    property alias minimum: rotatorScale.minimum
-                    property alias maximum: rotatorScale.maximum
+                    property alias minimum: tank2.minimum
+                    property alias maximum: tank2.maximum
                 }
             }
         }

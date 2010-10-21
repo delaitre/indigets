@@ -1,10 +1,8 @@
 #include <linearscale.hpp>
-#include <abstractscaleengine.hpp>
 
 LinearScale::LinearScale(QDeclarativeItem* parent)
     : AbstractScale(parent)
     , m_orientation(LinearScale::Vertical)
-    , m_baselineLength(0)
 {
 
 }
@@ -24,23 +22,7 @@ void LinearScale::setOrientation(LinearScale::Orientation orientation)
     }
 }
 
-double LinearScale::baselineLength() const
-{
-    return m_baselineLength;
-}
-
-void LinearScale::setBaselineLength(double length)
-{
-    length = qMax(length, 0.);
-    if (length != m_baselineLength)
-    {
-        m_baselineLength = length;
-        rebuild();
-        emit baselineLengthChanged(m_baselineLength);
-    }
-}
-
-QSizeF LinearScale::implicitSize() const
+/*QSizeF LinearScale::implicitSize() const
 {
     double baselineOffset = baselineVisible() ? thickness() : 0.;
     QSizeF labelOffset(0, 0);
@@ -76,12 +58,13 @@ QSizeF LinearScale::implicitSize() const
     }
 
     return QSizeF(width, height);
-}
+}*/
 
-QPainterPath LinearScale::buildPath(const QRectF& rect) const
+/*QPainterPath LinearScale::buildPath() const
 {
-    QPainterPath path;
+    QRectF rect = boundingRect();
 
+    QPainterPath path;
     if (m_orientation == Horizontal)
     {
         double xOffset = (rect.width() - m_baselineLength) * 0.5;
@@ -110,13 +93,34 @@ QPainterPath LinearScale::buildPath(const QRectF& rect) const
     }
 
     return path;
+}*/
+
+QPainterPath LinearScale::buildPath() const
+{
+    QRectF rect = boundingRect();
+    QPainterPath path;
+
+    if (m_orientation == Horizontal)
+    {
+        path.moveTo(rect.topLeft());
+        path.lineTo(rect.topRight());
+    }
+    else
+    {
+        path.moveTo(rect.bottomLeft());
+        path.lineTo(rect.topLeft());
+    }
+
+    return path;
 }
 
 QPainterPath LinearScale::subpath(double from, double to) const
 {
     QPainterPath subpath;
-    subpath.moveTo(path().pointAtPercent(from));
-    subpath.lineTo(path().pointAtPercent(to));
+    const QPainterPath& path = this->path();
+
+    subpath.moveTo(path.pointAtPercent(from));
+    subpath.lineTo(path.pointAtPercent(to));
 
     return subpath;
 }

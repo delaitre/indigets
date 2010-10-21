@@ -22,10 +22,11 @@ QML_FILES = \
     components/CircularButton.qml \
     components/Rotator.qml \
     components/Gauge.qml \
-    components/Tank.qml
+    components/Scaler.qml
 
 OTHER_FILES = \
     $$QML_FILES \
     qmldir \
     examples/demo1.qml \
-    examples/ValueChanger.qml
+    examples/ValueChanger.qml \
+    components/Tank.qml

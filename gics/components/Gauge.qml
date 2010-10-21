@@ -3,19 +3,10 @@ import Qt 4.7
 
 Item {
     id: gauge
-    property real minimum: 0
-    property real middle: 60
-    property real maximum: 100
-    property real value: 0
-    property real startAngle: 145
-    property real spanAngle: 250
-    property real baselineRadius: 150
-    property real tickStep: 5
-    property real thickness: 4
-    property bool animated: true
-
-    width: rotator.width + 40
-    height: rotator.height + 40
+    property alias minimum: scale.minimum
+    property real middle: minimum + (maximum - minimum) * 0.7
+    property alias maximum: scale.maximum
+    property alias value: rotator.value
 
     Image {
         id: background
@@ -25,85 +16,69 @@ Item {
         sourceSize.height: height
     }
 
-    StepScaleEngine {
-        id: majorEngine
+    LinearValueMapper {
+        id: valueMapper
         minimum: gauge.minimum
         maximum: gauge.maximum
-        step: gauge.tickStep
     }
 
-    StepScaleEngine {
-        id: minorEngine2
-        minimum: gauge.minimum
-        maximum: gauge.maximum
-        step: gauge.tickStep * 0.5
-    }
-
-    FixedScaleEngine {
-        id: minorEngine
-        minimum: gauge.minimum
-        maximum: gauge.maximum
-        data: [[87.5, "warning"], [92.5, "danger"], [97.5, "beware"]]
+    StepTickEngine {
+        id: ticks
+        step: 10
     }
 
     CircularScale {
-        id: scale1
-        anchors.centerIn: gauge
-        baselineRect: Qt.rect(0, 0, baselineRadius, baselineRadius)
-        minimum: gauge.minimum
-        maximum: gauge.middle
-        startAngle: gauge.startAngle
-        spanAngle: gauge.spanAngle * (gauge.middle - gauge.minimum) / (gauge.maximum - gauge.minimum)
-        engine: majorEngine
-        color: "white"
-        beginningTickVisible: true
-        endingTickVisible: false
-        thickness: gauge.thickness
-        flipTicks: false
-        smooth: true
-    }
+        id: scale
+        anchors.fill: parent
+        minimum: 0
+        maximum: 100
+        startAngle: 145
+        spanAngle: 250
+        mapper: valueMapper
+        zones: [
+            StandardScaleZone {
+                id: zone1
+                scale: scale
+                parent: scale
+                minimum: gauge.minimum
+                maximum: gauge.middle
+                tickEngine: ticks
+                color: "white"
+                baselineVisible: true
+                ticksVisible: true
+                labelsVisible: true
+                beginningTickVisible: true
+                endingTickVisible: false
+                thickness: 2
+                tickLength: 3
+                flipTicks: true
+                smooth: true
+            },
 
-    CircularScale {
-        id: scale2
-        anchors.centerIn: gauge
-        baselineRect: Qt.rect(0, 0, baselineRadius, baselineRadius)
-        minimum: gauge.middle
-        maximum: gauge.maximum
-        startAngle: scale1.startAngle + scale1.spanAngle
-        spanAngle: gauge.spanAngle - scale1.spanAngle
-        engine: majorEngine
-        color: "red"
-        beginningTickVisible: true
-        endingTickVisible: true
-        thickness: gauge.thickness
-        flipTicks: false
-        smooth: true
-    }
-
-    CircularScale {
-        id: scale3
-        anchors.centerIn: gauge
-        baselineRect: Qt.rect(0, 0, baselineRadius, baselineRadius)
-        minimum: scale2.minimum
-        maximum: scale2.maximum
-        startAngle: scale2.startAngle
-        spanAngle: scale2.spanAngle
-        engine: minorEngine
-        color: "orange"
-        beginningTickVisible: false
-        endingTickVisible: false
-        thickness: gauge.thickness * 0.5
-        baselineVisible: true
-        labelsVisible: true
-        flipTicks: true
-        smooth: true
+            StandardScaleZone {
+                id: zone2
+                scale: scale
+                parent: scale
+                minimum: gauge.middle
+                maximum: gauge.maximum
+                tickEngine: ticks
+                color: "red"
+                baselineVisible: true
+                ticksVisible: true
+                labelsVisible: true
+                beginningTickVisible: true
+                endingTickVisible: true
+                thickness: 2
+                tickLength: 3
+                flipTicks: true
+                smooth: true
+            }
+        ]
     }
 
     Image {
         id: needle
         source: "../resources/gauge_needle.svg"
-        width: baselineRadius * 0.5
-        height: baselineRadius * 0.07
         sourceSize.width: width
         sourceSize.height: height
         smooth: true
@@ -111,15 +86,23 @@ Item {
 
     Rotator {
         id: rotator
-        scale: scale1
+        anchors.left: gauge.left
+        anchors.top: gauge.top
+        anchors.right: gauge.right
+        anchors.bottom: gauge.bottom
+        anchors.leftMargin: gauge.width * 0.1
+        anchors.topMargin: gauge.height * 0.1
+        anchors.rightMargin: gauge.width * 0.1
+        anchors.bottomMargin: gauge.height * 0.1
+        scale: scale
         pointer: needle
-        value: gauge.value
+        value: 0
+        scaleOriginX: scale.width / 2
+        scaleOriginY: scale.height / 2
         pointerOriginX: needle.width * 0.279654
-        pointerOriginY: needle.height * 0.5
-        scaleOriginX: gauge.width * 0.5
-        scaleOriginY: gauge.height * 0.5
-        pointerWidth: needle.width
-        pointerHeight: needle.height
+        pointerOriginY: needle.height / 2
+        pointerWidth: scale.width / 2
+        pointerHeight: scale.height * 0.05
 
         Behavior on value { NumberAnimation { duration: 400 } }
     }

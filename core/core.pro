@@ -10,22 +10,28 @@ MOC_DIR = tmp
 
 HEADERS += \
     tools.hpp \
-    abstractscaleengine.hpp \
-    linearscaleengine.hpp \
-    stepscaleengine.hpp \
+    steptickengine.hpp \
     abstractscale.hpp \
     linearscale.hpp \
     circularscale.hpp \
-    fixedscaleengine.hpp \
-    ellipse.hpp
+    fixedtickengine.hpp \
+    ellipse.hpp \
+    scalezone.hpp \
+    valuemapper.hpp \
+    tickengine.hpp \
+    linearvaluemapper.hpp \
+    standardscalezone.hpp
 
 SOURCES += \
     tools.cpp \
-    abstractscaleengine.cpp \
-    linearscaleengine.cpp \
-    stepscaleengine.cpp \
+    steptickengine.cpp \
     abstractscale.cpp \
     linearscale.cpp \
     circularscale.cpp \
-    fixedscaleengine.cpp \
-    ellipse.cpp
+    fixedtickengine.cpp \
+    ellipse.cpp \
+    scalezone.cpp \
+    valuemapper.cpp \
+    tickengine.cpp \
+    linearvaluemapper.cpp \
+    standardscalezone.cpp
