@@ -32,19 +32,22 @@ Item {
         if (!scale)
             return;
 
+        var posFrom = scale.pointAtValue(scaler.from);
+        posFrom = scale.mapToItem(scaler.parent, posFrom.x, posFrom.y);
+        var posTo = scale.pointAtValue(scaler.to);
+        posTo = scale.mapToItem(scaler.parent, posTo.x, posTo.y);
+
         var x, y, w, h;
         if (scale.orientation == LinearScale.Horizontal) {
-            var pos = scale.pointAtValue(scaler.from);
-            x = pos.x;
-            y = pos.y + scaler.spacing;
-            w = scale.pointAtValue(scaler.to).x - x;
+            x = posFrom.x;
+            y = posFrom.y + scaler.spacing;
+            w = posTo.x - x;
             h = scaler.fillWidth;
         } else {
-            var pos = scale.pointAtValue(scaler.from);
-            x = pos.x + scaler.spacing;
-            y = pos.y;
+            x = posFrom.x + scaler.spacing;
+            y = posFrom.y;
             w = scaler.fillWidth;
-            h = scale.pointAtValue(scaler.to).y - y;
+            h = posTo.y - y;
         }
 
         if (w < 0) {
