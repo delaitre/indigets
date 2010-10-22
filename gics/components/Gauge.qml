@@ -7,6 +7,7 @@ Item {
     property real middle: minimum + (maximum - minimum) * 0.7
     property alias maximum: scale.maximum
     property alias value: rotator.value
+    property alias scale: scale
 
     Image {
         id: background
@@ -104,7 +105,7 @@ Item {
         pointerWidth: scale.width / 2
         pointerHeight: scale.height * 0.05
 
-        Behavior on value { NumberAnimation { duration: 400 } }
+        //Behavior on value { NumberAnimation { duration: 400 } }
     }
 
     Image {
@@ -113,5 +114,6 @@ Item {
         anchors.fill: parent
         sourceSize.width: width
         sourceSize.height: height
+        smooth: true
     }
 }

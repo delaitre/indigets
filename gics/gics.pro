@@ -29,4 +29,6 @@ OTHER_FILES = \
     qmldir \
     examples/demo1.qml \
     examples/ValueChanger.qml \
-    components/Tank.qml
+    components/Tank.qml \
+    components/Marker.qml \
+    components/Pointer.qml

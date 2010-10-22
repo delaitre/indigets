@@ -1,5 +1,6 @@
 Scaler 1.0 components/Scaler.qml
 Rotator 1.0 components/Rotator.qml
+Marker 1.0 components/Marker.qml
 
 Label 1.0 components/Label.qml
 Field 1.0 components/Field.qml

@@ -26,6 +26,11 @@ Rectangle {
                 height: parent.height - 20
             }
 
+            Marker {
+                scale: gauge.scale
+                value: gauge.value
+            }
+
             ValueChanger { subject: gauge }
         }
 
@@ -38,6 +43,11 @@ Rectangle {
                 id: gauge2
                 width: parent.width
                 height: parent.height - 20
+            }
+
+            Marker {
+                scale: gauge2.scale
+                value: gauge2.value
             }
 
             ValueChanger { subject: gauge2 }
@@ -82,16 +92,20 @@ Rectangle {
         Column {
             spacing: 4
             width:  200
-            height:  400
 
             Tank {
                 id: tank
                 width: parent.width
-                height: parent.height - 20
+                height: 40
                 orientation: LinearScale.Horizontal
                 minimum: -40
                 maximum: 40
                 from: -20
+            }
+
+            Marker {
+                scale: tank.scale
+                value: tank.to
             }
 
             ValueChanger {
@@ -105,17 +119,21 @@ Rectangle {
 
         Column {
             spacing: 4
-            width:  400
             height:  200
 
             Tank {
                 id: tank2
-                width: parent.width
+                width: 40
                 height: parent.height - 20
                 orientation: LinearScale.Vertical
                 minimum: -40
                 maximum: 40
                 from: -20
+            }
+
+            Marker {
+                scale: tank2.scale
+                value: tank2.to
             }
 
             ValueChanger {

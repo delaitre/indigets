@@ -9,6 +9,7 @@ Item {
     property alias from: scaler.from
     property alias to: scaler.to
     property alias orientation: scale.orientation
+    property alias scale: scale
 
     LinearValueMapper {
         id: valueMapper
@@ -83,7 +84,7 @@ Item {
         spacing: 2
         fillWidth: 20
 
-        Behavior on to { NumberAnimation { duration: 400 } }
+        //Behavior on to { NumberAnimation { duration: 400 } }
     }
 
     Image {
