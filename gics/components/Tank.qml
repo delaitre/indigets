@@ -70,29 +70,28 @@ Item {
         ]
     }
 
-    Rectangle {
-        id: fill
-        color: "green"
-    }
-
     Scaler {
         id: scaler
         scale: scale
-        fillElement: fill
+        //fillElement: fill
         from: 0
         to: 0
         spacing: 2
         fillWidth: 20
 
-        //Behavior on to { NumberAnimation { duration: 400 } }
-    }
+        Behavior on to { NumberAnimation { duration: 400 } }
 
-    Image {
-        id: foreground
-        parent: fill.parent
-        anchors.fill: fill
-        source: (tank.orientation == LinearScale.Horizontal) ? "../resources/tank_hfg.svg" : "../resources/tank_vfg.svg"
-        sourceSize.width: width
-        sourceSize.height: height
+        Rectangle {
+            color: "green"
+            anchors.fill: scaler
+
+            Image {
+                id: foreground
+                anchors.fill: parent
+                source: (tank.orientation == LinearScale.Horizontal) ? "../resources/tank_hfg.svg" : "../resources/tank_vfg.svg"
+                sourceSize.width: width
+                sourceSize.height: height
+            }
+        }
     }
 }
