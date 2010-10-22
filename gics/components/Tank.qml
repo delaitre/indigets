@@ -82,7 +82,7 @@ Item {
         Behavior on to { NumberAnimation { duration: 400 } }
 
         Rectangle {
-            color: "green"
+            color: "#abd037"
             anchors.fill: scaler
 
             Image {

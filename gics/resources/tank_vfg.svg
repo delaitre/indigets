@@ -10,12 +10,12 @@
    xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="51.022999"
-   height="13.26336"
+   width="22.451571"
+   height="22.727634"
    id="svg14559"
    version="1.1"
    inkscape:version="0.48.0 r9654"
-   sodipodi:docname="New document 5">
+   sodipodi:docname="tank_hfg.svg">
   <defs
      id="defs14561">
     <linearGradient
@@ -28,27 +28,23 @@
        gradientTransform="matrix(1,0,0,0.07310939,147.52184,-28.070488)">
       <stop
          offset="0"
-         style="stop-color:#ffffff;stop-opacity:0.27018633;"
+         style="stop-color:#ffffff;stop-opacity:0.1552795;"
          id="stop2378" />
-      <stop
-         id="stop14525"
-         style="stop-color:#ffffff;stop-opacity:0.87577641;"
-         offset="0.24513482" />
-      <stop
-         offset="0.71871942"
-         style="stop-color:#ffffff;stop-opacity:0.40683231;"
-         id="stop14527" />
       <stop
          id="stop14533"
          style="stop-color:#ffffff;stop-opacity:0.40993789;"
-         offset="0.79572397" />
+         offset="0.14452448" />
+      <stop
+         offset="0.61557275"
+         style="stop-color:#ffffff;stop-opacity:0.13975155;"
+         id="stop3775" />
       <stop
          offset="0.88193935"
-         style="stop-color:#ffffff;stop-opacity:0.48757765;"
+         style="stop-color:#ffffff;stop-opacity:0.16770187;"
          id="stop14537" />
       <stop
          offset="1"
-         style="stop-color:#ffffff;stop-opacity:0.46273291;"
+         style="stop-color:#ffffff;stop-opacity:0.07453416;"
          id="stop2380" />
     </linearGradient>
     <linearGradient
@@ -56,7 +52,7 @@
        x2="260.96191"
        y1="888.58789"
        x1="209.93851"
-       gradientTransform="matrix(1,0,0,0.07310939,-88.306639,43.11234)"
+       gradientTransform="matrix(0.44002843,0,0,0.12527773,11.931255,-19.493833)"
        gradientUnits="userSpaceOnUse"
        id="linearGradient14557"
        xlink:href="#SVGID_35_"
@@ -69,9 +65,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.7"
-     inkscape:cx="204.40233"
-     inkscape:cy="-305.04109"
+     inkscape:zoom="5.6"
+     inkscape:cx="113.87983"
+     inkscape:cy="15.459275"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -79,7 +75,7 @@
      fit-margin-left="0"
      fit-margin-right="0"
      fit-margin-bottom="0"
-     inkscape:window-width="1058"
+     inkscape:window-width="1678"
      inkscape:window-height="1029"
      inkscape:window-x="0"
      inkscape:window-y="0"
@@ -100,12 +96,12 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(-121.63136,-101.44479)">
+     transform="translate(-104.30994,-80.462654)">
     <rect
-       x="121.63136"
-       y="101.44479"
-       width="51.022999"
-       height="13.26336"
+       x="104.30994"
+       y="80.462654"
+       width="22.451571"
+       height="22.727634"
        id="levelIndicator_tank_filling_enabled"
        style="fill:url(#linearGradient14557)"
        inkscape:label="#rect2382" />

@@ -74,11 +74,50 @@ Item {
                 baselineVisible: true
                 ticksVisible: true
                 labelsVisible: true
-                beginningTickVisible: true
+                beginningTickVisible: false
                 endingTickVisible: true
                 thickness: 2
                 tickLength: 3
                 flipTicks: true
+                smooth: true
+            },
+
+            StandardScaleZone {
+                id: zone3
+                scale: scale
+                parent: scale
+                minimum: gauge.middle
+                maximum: gauge.maximum
+                tickEngine: StepTickEngine { step: 5 }
+                color: "red"
+                baselineVisible: false
+                ticksVisible: true
+                labelsVisible: false
+                beginningTickVisible: false
+                endingTickVisible: false
+                thickness: 2
+                tickLength: 2
+                flipTicks: true
+                smooth: true
+            },
+
+            StandardScaleZone {
+                id: zone4
+                scale: scale
+                parent: scale
+                minimum: gauge.middle
+                maximum: gauge.maximum
+                tickEngine: FixedTickEngine { data: [[zone4.minimum, "beware"]] }
+                color: "orange"
+                baselineVisible: false
+                ticksVisible: true
+                labelsVisible: true
+                beginningTickVisible: true
+                endingTickVisible: true
+                thickness: 2
+                tickLength: 10
+                flipTicks: true
+                font.bold: true
                 smooth: true
             }
         ]
