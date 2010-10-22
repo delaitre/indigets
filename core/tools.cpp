@@ -1,7 +1,7 @@
-#include "tools.hpp"
+#include <tools.hpp>
 #include <QLineF>
 
-Tools::Tools(QObject *parent) :
+Tools::Tools(QObject* parent) :
     QObject(parent)
 {
 }

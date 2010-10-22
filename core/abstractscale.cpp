@@ -120,3 +120,15 @@ void AbstractScale::rebuild()
     emit pathChanged(m_path);
     update();
 }
+
+QPainterPath AbstractScale::subpath(double from, double to) const
+{
+    Q_UNUSED(from);
+    Q_UNUSED(to);
+    return QPainterPath();
+}
+
+QPainterPath AbstractScale::buildPath() const
+{
+    return QPainterPath();
+}

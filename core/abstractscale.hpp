@@ -33,7 +33,7 @@ public:
     ScaleZone* zone(int index) const;
 
     const QPainterPath& path() const;
-    virtual QPainterPath subpath(double from, double to) const {}; // FIXME = 0;
+    virtual QPainterPath subpath(double from, double to) const; // FIXME should be pure virtual
 
     Q_INVOKABLE double percentAtValue(double value) const;
 
@@ -52,7 +52,7 @@ signals:
 protected:
     virtual void geometryChanged(const QRectF& newGeometry, const QRectF& oldGeometry);
     void rebuild();
-    virtual QPainterPath buildPath() const {}; // FIXME = 0;
+    virtual QPainterPath buildPath() const; // FIXME should be pure virtual
 
 private:
     double m_minimum;
