@@ -3,8 +3,8 @@ import Qt 4.7
 
 Item {
     property QtObject subject
-    width:  parent.width
     height:  20
+    width: childrenRect.width
 
     Label {
         id: label

@@ -73,7 +73,6 @@ Item {
     Scaler {
         id: scaler
         scale: scale
-        //fillElement: fill
         from: 0
         to: 0
         spacing: 2
