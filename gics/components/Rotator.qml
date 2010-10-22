@@ -3,67 +3,25 @@ import Qt 4.7
 
 Item {
     id: rotator
-    property CircularScale scale
-    property Item pointer
+    property AbstractScale scale
     property real value: 0
-    property real scaleOriginX: 0
-    property real scaleOriginY: 0
-    property real pointerOriginX: 0
-    property real pointerOriginY: 0
-    property alias pointerWidth: pointerWrapper.width
-    property alias pointerHeight: pointerWrapper.height
+    rotation: angleForValue(value)
 
-    x: childrenRect.x
-    y: childrenRect.y
-    width: childrenRect.width
-    height: childrenRect.height
+    width: 1
+    height: 1
 
-    Item {
-        id: pointerWrapper
-        z: 2
-        property real angle: 0
-        transform: [
-            Translate {
-                x: -rotator.pointerOriginX
-                y: -rotator.pointerOriginY
-            },
-            Rotation {
-                angle: pointerWrapper.angle
-            },
-            Translate {
-                x: rotator.scaleOriginX
-                y: rotator.scaleOriginY
-            }
-        ]
-        smooth: true
-    }
-
-    onValueChanged: { update(); }
-
-    onScaleChanged:  {
-        scale.parent = rotator;
-        scale.z = 1;
-        scale.x = 0;
-        scale.y = 0;
-        update();
-    }
-
-    onPointerChanged: {
-        pointer.parent = pointerWrapper;
-        pointer.anchors.fill = pointerWrapper;
-        update();
-    }
-
-    function update() {
-        pointerWrapper.angle = angleForValue(rotator.value);
+    onScaleChanged: {
+        if (scale)
+            rotator.parent = scale.parent
     }
 
     function angleForValue(v) {
-        if (!scale || !pointer)
-            return 0.;
+        if (!scale)
+            return rotator.rotation;
 
         var pos = scale.pointAtValue(v);
+        pos = scale.mapToItem(rotator.parent, pos.x, pos.y);
 
-        return Gics.angle(Qt.point(scaleOriginX, scaleOriginY), pos);
+        return Gics.angle(Qt.point(rotator.x, rotator.y), Qt.point(pos.x, pos.y));
     }
 }

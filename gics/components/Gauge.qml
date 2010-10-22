@@ -30,7 +30,14 @@ Item {
 
     CircularScale {
         id: scale
-        anchors.fill: parent
+        anchors.left: gauge.left
+        anchors.top: gauge.top
+        anchors.right: gauge.right
+        anchors.bottom: gauge.bottom
+        anchors.leftMargin: gauge.width * 0.1
+        anchors.topMargin: gauge.height * 0.1
+        anchors.rightMargin: gauge.width * 0.1
+        anchors.bottomMargin: gauge.height * 0.1
         minimum: 0
         maximum: 100
         startAngle: 145
@@ -77,35 +84,27 @@ Item {
         ]
     }
 
-    Image {
-        id: needle
-        source: "../resources/gauge_needle.svg"
-        sourceSize.width: width
-        sourceSize.height: height
-        smooth: true
-    }
-
     Rotator {
         id: rotator
-        anchors.left: gauge.left
-        anchors.top: gauge.top
-        anchors.right: gauge.right
-        anchors.bottom: gauge.bottom
-        anchors.leftMargin: gauge.width * 0.1
-        anchors.topMargin: gauge.height * 0.1
-        anchors.rightMargin: gauge.width * 0.1
-        anchors.bottomMargin: gauge.height * 0.1
         scale: scale
-        pointer: needle
         value: 0
-        scaleOriginX: scale.width / 2
-        scaleOriginY: scale.height / 2
-        pointerOriginX: needle.width * 0.279654
-        pointerOriginY: needle.height / 2
-        pointerWidth: scale.width / 2
-        pointerHeight: scale.height * 0.05
+        x: gauge.width / 2
+        y: gauge.height / 2
 
-        //Behavior on value { NumberAnimation { duration: 400 } }
+
+        Behavior on value { NumberAnimation { duration: 400 } }
+
+        Image {
+            id: needle
+            source: "../resources/gauge_needle.svg"
+            x: -width * 0.279654
+            y: -height / 2
+            width: ((gauge.width < gauge.height) ? gauge.width : gauge.height) * 0.4
+            height: width * 0.2
+            sourceSize.width: width
+            sourceSize.height: height
+            smooth: true
+        }
     }
 
     Image {
