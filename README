@@ -1,0 +1,11 @@
+
+Industrial Qt Quick components
+
+To run the demo:
+
+- Open indigets.pro in Qt Creator
+- Build
+- Run (the first time, a popup window appears to configure run settings)
+    - Exectuable: Select the QML Viewer executable
+    - Arguments: "%{sourceDir}/gics/examples/demo1.qml"
+
