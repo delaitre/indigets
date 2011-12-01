@@ -16,7 +16,7 @@ class StandardScaleZone : public ScaleZone
     Q_PROPERTY(bool beginningTickVisible READ beginningTickVisible WRITE setBeginningTickVisible NOTIFY beginningTickVisibleChanged)
     Q_PROPERTY(bool endingTickVisible READ endingTickVisible WRITE setEndingTickVisible NOTIFY endingTickVisibleChanged)
     Q_PROPERTY(double thickness READ thickness WRITE setThickness NOTIFY thicknessChanged)
-    Q_PROPERTY(double tickLength READ tickLength WRITE setTickLength NOTIFY thickLengthChanged)
+    Q_PROPERTY(double tickLength READ tickLength WRITE setTickLength NOTIFY tickLengthChanged)
     Q_PROPERTY(bool flipTicks READ flipTicks WRITE setFlipTicks NOTIFY flipTicksChanged)
     Q_PROPERTY(QFont font READ font WRITE setFont NOTIFY fontChanged)
 
