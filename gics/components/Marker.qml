@@ -1,11 +1,11 @@
-import ".." 1.0
+import "." 1.0
 import Qt 4.7
 
 Pointer {
     z: scale.z + 1
 
     Image {
-        source: "../resources/marker.svg"
+        source: "marker.svg"
         width: 10
         height: 10
         sourceSize.width: width
@@ -15,5 +15,5 @@ Pointer {
         y: -height / 2
     }
 
-    Behavior on value { NumberAnimation { duration: 400 } }
+    //Behavior on value { NumberAnimation { duration: 400 } }
 }

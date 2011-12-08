@@ -1,4 +1,4 @@
-import ".." 1.0
+import "." 1.0
 import Qt 4.7
 
 Item {
@@ -11,7 +11,7 @@ Item {
 
     Image {
         id: background
-        source: "../resources/gauge_bg.svg"
+        source: "gauge_bg.svg"
         anchors.fill: parent
         sourceSize.width: width
         sourceSize.height: height
@@ -135,7 +135,7 @@ Item {
 
         Image {
             id: needle
-            source: "../resources/gauge_needle.svg"
+            source: "gauge_needle.svg"
             x: -width * 0.279654
             y: -height / 2
             width: ((gauge.width < gauge.height) ? gauge.width : gauge.height) * 0.4
@@ -148,7 +148,7 @@ Item {
 
     Image {
         id: foreground
-        source: "../resources/gauge_fg.svg"
+        source: "gauge_fg.svg"
         anchors.fill: parent
         sourceSize.width: width
         sourceSize.height: height

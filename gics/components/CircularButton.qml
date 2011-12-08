@@ -1,4 +1,4 @@
-import ".." 1.0
+import "." 1.0
 import Qt 4.7
 
 Item {
@@ -14,7 +14,7 @@ Item {
         anchors.fill: parent
         sourceSize.width: width
         sourceSize.height: height
-        source: "../resources/circular_button_up.svg"
+        source: "circular_button_up.svg"
         visible: !press.visible && !checked
     }
 
@@ -23,7 +23,7 @@ Item {
         anchors.fill: parent
         sourceSize.width: width
         sourceSize.height: height
-        source: "../resources/circular_button_down.svg"
+        source: "circular_button_down.svg"
         visible: !press.visible && checked
     }
 
@@ -32,7 +32,7 @@ Item {
         anchors.fill: parent
         sourceSize.width: width
         sourceSize.height: height
-        source: "../resources/circular_button_down.svg"
+        source: "circular_button_down.svg"
         visible: mouseArea.pressed
     }
 

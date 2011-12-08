@@ -1,4 +1,4 @@
-import ".." 1.0
+import "." 1.0
 import Qt 4.7
 
 Item {
@@ -87,7 +87,7 @@ Item {
             Image {
                 id: foreground
                 anchors.fill: parent
-                source: (tank.orientation == LinearScale.Horizontal) ? "../resources/tank_hfg.svg" : "../resources/tank_vfg.svg"
+                source: (tank.orientation == LinearScale.Horizontal) ? "tank_hfg.svg" : "tank_vfg.svg"
                 sourceSize.width: width
                 sourceSize.height: height
             }

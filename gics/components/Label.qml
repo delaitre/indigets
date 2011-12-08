@@ -9,7 +9,7 @@ Text {
 
     BorderImage {
         z: -1
-        source: "../resources/label.svg"
+        source: "label.svg"
         anchors.fill: parent
         sourceSize.width: width
         sourceSize.height: height

@@ -8,7 +8,7 @@ TextInput {
 
     BorderImage {
         z: -1
-        source: "../resources/field.svg"
+        source: "field.svg"
         anchors.fill: parent
         sourceSize.width: width
         sourceSize.height: height

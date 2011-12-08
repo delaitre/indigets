@@ -13,7 +13,7 @@ Item {
         anchors.fill: parent
         sourceSize.width: width
         sourceSize.height: height
-        source: "../resources/square_button_up.svg"
+        source: "square_button_up.svg"
         visible: !press.visible && !checked
     }
 
@@ -22,7 +22,7 @@ Item {
         anchors.fill: parent
         sourceSize.width: width
         sourceSize.height: height
-        source: "../resources/square_button_down.svg"
+        source: "square_button_down.svg"
         visible: !press.visible && checked
     }
 
@@ -31,7 +31,7 @@ Item {
         anchors.fill: parent
         sourceSize.width: width
         sourceSize.height: height
-        source: "../resources/square_button_down.svg"
+        source: "square_button_down.svg"
         visible: mouseArea.pressed
     }
 

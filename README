@@ -7,5 +7,5 @@ To run the demo:
 - Build
 - Run (the first time, a popup window appears to configure run settings)
     - Exectuable: Select the QML Viewer executable
-    - Arguments: "%{sourceDir}/gics/examples/demo1.qml"
+    - Arguments: "%{buildDir}/gics/demo1.qml"
 

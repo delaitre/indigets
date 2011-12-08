@@ -1,4 +1,4 @@
-import ".." 1.0
+import "." 1.0
 import Qt 4.7
 
 Item {
@@ -18,7 +18,7 @@ Item {
 
     Image {
         id: background
-        source: "../resources/led_bg.svg"
+        source: "led_bg.svg"
         anchors.fill: parent
         sourceSize.width: width
         sourceSize.height: height
@@ -40,7 +40,7 @@ Item {
 
     Image {
         id: foreground
-        source: "../resources/led_fg.svg"
+        source: "led_fg.svg"
         anchors.fill: parent
         sourceSize.width: width
         sourceSize.height: height
