@@ -85,7 +85,9 @@ add_library(indigets MODULE ${SRCS} ${MOC_SRCS})
 set_target_properties(indigets PROPERTIES VERSION ${VERSION})
 
 # Since this plugin will be loaded at runtime, it must have a consistent name: remove the platform-specific prefix if any
-set_target_properties(indigets PROPERTIES PREFIX "")
+if(CMAKE_SYSTEM_NAME MATCHES "Windows")
+    set_target_properties(indigets PROPERTIES PREFIX "")
+endif()
 
 # Link the target to its dependencies
 target_link_libraries(indigets ${QT_LIBRARIES})
