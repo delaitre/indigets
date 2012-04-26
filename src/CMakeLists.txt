@@ -49,7 +49,12 @@ set(SRCS
 )
 
 # Since it is a QML plugin, we need to output its binaries to a "indigets" sub-directory
-get_filename_component(INDIGETS_DIRECTORY "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}" ABSOLUTE)
+if(CMAKE_RUNTIME_OUTPUT_DIRECTORY)
+    set(INDIGETS_DIRECTORY "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}")
+else()
+    set(INDIGETS_DIRECTORY "${CMAKE_BINARY_DIR}")
+endif()
+get_filename_component(INDIGETS_DIRECTORY "${INDIGETS_DIRECTORY}" ABSOLUTE)
 set(INDIGETS_DIRECTORY "${INDIGETS_DIRECTORY}/indigets")
 file(MAKE_DIRECTORY "${INDIGETS_DIRECTORY}")
 
