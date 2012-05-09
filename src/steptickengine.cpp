@@ -73,14 +73,18 @@ QMap<double, QString> StepTickEngine::ticks(double minimum, double maximum) cons
     QMap<double, QString> ticks;
     for (double value = minTick; value <= maxTick; value += m_step)
     {
-        // Round to 0 if very close
-        QString label("0");
-        if (qAbs(value) > _eps)
-            label = QString::number(value);
-
         // Add the tick to the list
-        ticks[value] = label;
+        ticks[value] = label(value);
     }
 
     return ticks;
+}
+
+QString StepTickEngine::label(double value) const
+{
+    // Round to 0 if very close
+    if (qAbs(value) > _eps)
+        return QString::number(value);
+    else
+        return "0";
 }

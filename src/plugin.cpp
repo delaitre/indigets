@@ -4,6 +4,7 @@
 #include "linearvaluemapper.hpp"
 #include "fixedtickengine.hpp"
 #include "steptickengine.hpp"
+#include "timestamptickengine.hpp"
 #include "linearscale.hpp"
 #include "circularscale.hpp"
 #include "standardscalezone.hpp"
@@ -28,6 +29,7 @@ void Plugin::registerTypes(const char* uri)
     qmlRegisterType<TickEngine>();
     qmlRegisterType<FixedTickEngine>(uri, 1, 0, "FixedTickEngine");
     qmlRegisterType<StepTickEngine>(uri, 1, 0, "StepTickEngine");
+    qmlRegisterType<TimestampTickEngine>(uri, 1, 0, "TimestampTickEngine");
     qmlRegisterType<AbstractScale>(uri, 1, 0, "AbstractScale"); // FIXME
     qmlRegisterType<LinearScale>(uri, 1, 0, "LinearScale");
     qmlRegisterType<CircularScale>(uri, 1, 0, "CircularScale");

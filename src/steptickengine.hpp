@@ -19,6 +19,9 @@ public:
 signals:
     void stepChanged(double step);
 
+protected:
+    virtual QString label(double value) const;
+
 private:
     double m_step;
 };

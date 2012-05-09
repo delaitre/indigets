@@ -15,6 +15,7 @@ set(MOC_HDRS
     linearvaluemapper.hpp
     standardscalezone.hpp
     plugin.hpp
+    timestamptickengine.hpp
 )
 
 # All source files
@@ -46,6 +47,8 @@ set(SRCS
     standardscalezone.cpp
     plugin.hpp
     plugin.cpp
+    timestamptickengine.cpp
+    timestamptickengine.hpp
 )
 
 # Since it is a QML plugin, we need to output its binaries to a "indigets" sub-directory
