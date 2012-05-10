@@ -92,17 +92,20 @@ QPointF AbstractScale::pointAtPercent(double percent) const
 
 QPointF AbstractScale::pointAtValue(double value) const
 {
-    return m_path.pointAtPercent(percentAtValue(value));
+    return pointAtPercent(percentAtValue(value));
 }
 
 double AbstractScale::angleAtPercent(double percent) const
 {
-    return m_path.angleAtPercent(percent);
+    if (!m_path.isEmpty())
+        return m_path.angleAtPercent(percent);
+    else
+        return 0;
 }
 
 double AbstractScale::angleAtValue(double value) const
 {
-    return m_path.angleAtPercent(percentAtValue(value));
+    return angleAtPercent(percentAtValue(value));
 }
 
 void AbstractScale::geometryChanged(const QRectF& newGeometry, const QRectF& oldGeometry)
