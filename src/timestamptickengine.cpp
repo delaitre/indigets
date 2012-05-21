@@ -4,6 +4,7 @@
 TimestampTickEngine::TimestampTickEngine(QObject* parent)
     : StepTickEngine(parent)
     , m_format("hh:mm:ss")
+    , m_origin(QDateTime::currentDateTimeUtc())
 {
 
 }
@@ -22,10 +23,24 @@ void TimestampTickEngine::setFormat(QString format)
     }
 }
 
+QDateTime TimestampTickEngine::origin() const
+{
+    return m_origin;
+}
+
+void TimestampTickEngine::setOrigin(QDateTime origin)
+{
+    if (m_origin != origin)
+    {
+        m_origin = origin;
+        emit originChanged();
+    }
+}
+
 QString TimestampTickEngine::label(double value) const
 {
     // convert the value back to a timestamp
-    QDateTime timestamp = QDateTime::fromMSecsSinceEpoch(static_cast<qint64>(value));
+    QDateTime timestamp = m_origin.addMSecs(static_cast<qint64>(value));
 
     // format it
     return timestamp.toString(m_format);
