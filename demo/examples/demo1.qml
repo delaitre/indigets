@@ -4,8 +4,8 @@ import Qt 4.7
 
 Rectangle {
     id: root
-    width: 600
-    height: 400
+    width: 800
+    height: 600
 
     gradient: Gradient {
         GradientStop { position: 0.0; color: "#ff525252" }
