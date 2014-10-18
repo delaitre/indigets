@@ -1,12 +1,12 @@
 #ifndef SCALEZONE_HPP
 #define SCALEZONE_HPP
 
-#include <QDeclarativeItem>
+#include <QQuickPaintedItem>
 #include <QPointer>
 
 class AbstractScale;
 
-class ScaleZone : public QDeclarativeItem
+class ScaleZone : public  QQuickPaintedItem
 {
     Q_OBJECT
     Q_PROPERTY(AbstractScale* scale READ scale WRITE setScale NOTIFY scaleChanged)
@@ -14,7 +14,7 @@ class ScaleZone : public QDeclarativeItem
     Q_PROPERTY(double maximum READ maximum WRITE setMaximum NOTIFY maximumChanged)
 
 public:
-    ScaleZone(QDeclarativeItem* parent = 0);
+    ScaleZone(QQuickItem* parent = 0);
 
     AbstractScale* scale() const;
     void setScale(AbstractScale* scale);

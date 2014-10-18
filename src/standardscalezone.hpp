@@ -2,6 +2,7 @@
 #define STANDARDSCALEZONE_HPP
 
 #include "scalezone.hpp"
+#include <QPainterPath>
 
 class TickEngine;
 
@@ -21,7 +22,7 @@ class StandardScaleZone : public ScaleZone
     Q_PROPERTY(QFont font READ font WRITE setFont NOTIFY fontChanged)
 
 public:
-    StandardScaleZone(QDeclarativeItem* parent = 0);
+    StandardScaleZone(QQuickItem* parent = 0);
 
     TickEngine* tickEngine() const;
     void setTickEngine(TickEngine* engine);
@@ -58,7 +59,7 @@ public:
     QFont font() const;
     void setFont(const QFont& font);
 
-    void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget = 0);
+    void paint(QPainter* painter);
 
 signals:
     void tickEngineChanged(TickEngine* engine);

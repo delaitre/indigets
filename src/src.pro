@@ -1,6 +1,6 @@
 TEMPLATE = lib
 CONFIG += qt plugin
-QT += declarative svg
+QT += qml quick svg
 
 TARGET = $$qtLibraryTarget(indigets)
 

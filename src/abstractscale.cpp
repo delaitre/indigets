@@ -2,8 +2,8 @@
 #include "valuemapper.hpp"
 #include <QPainter>
 
-AbstractScale::AbstractScale(QDeclarativeItem* parent)
-    : QDeclarativeItem(parent)
+AbstractScale::AbstractScale(QQuickItem* parent)
+    : QQuickItem(parent)
     , m_minimum(0)
     , m_maximum(100)
 {
@@ -55,9 +55,9 @@ void AbstractScale::setMapper(ValueMapper* mapper)
     }
 }
 
-QDeclarativeListProperty<ScaleZone> AbstractScale::zones()
+QQmlListProperty<ScaleZone> AbstractScale::zones()
 {
-    return QDeclarativeListProperty<ScaleZone>(this, m_zones);
+    return QQmlListProperty<ScaleZone>(this, m_zones);
 }
 
 int AbstractScale::zoneCount() const
@@ -110,7 +110,7 @@ double AbstractScale::angleAtValue(double value) const
 
 void AbstractScale::geometryChanged(const QRectF& newGeometry, const QRectF& oldGeometry)
 {
-    QDeclarativeItem::geometryChanged(newGeometry, oldGeometry);
+    QQuickItem::geometryChanged(newGeometry, oldGeometry);
 
     // Discard the path on geometry change
     rebuild();

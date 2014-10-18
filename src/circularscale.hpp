@@ -10,7 +10,7 @@ class CircularScale : public AbstractScale
     Q_PROPERTY(double spanAngle READ spanAngle WRITE setSpanAngle NOTIFY spanAngleChanged)
 
 public:
-    CircularScale(QDeclarativeItem* parent = 0);
+    CircularScale(QQuickItem* parent = 0);
 
     double startAngle() const;
     void setStartAngle(double angle);

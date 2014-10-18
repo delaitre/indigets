@@ -38,3 +38,5 @@ doc/api/*/*
 *.lib
 Makefile*
 *.manifest
+*.Release
+*.Debug

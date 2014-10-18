@@ -1,8 +1,8 @@
 #include "scalezone.hpp"
 #include "abstractscale.hpp"
 
-ScaleZone::ScaleZone(QDeclarativeItem* parent)
-    : QDeclarativeItem(parent)
+ScaleZone::ScaleZone(QQuickItem* parent)
+    : QQuickPaintedItem(parent)
     , m_minimum(0)
     , m_maximum(0)
 {
