@@ -1,6 +1,6 @@
 import indigets 1.0
 import demo 1.0
-import Qt 4.7
+import QtQuick 2.3
 
 Rectangle {
     id: root

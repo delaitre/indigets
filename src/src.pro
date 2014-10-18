@@ -51,6 +51,7 @@ OTHER_FILES = \
     ../demo/components/SquareButton.qml \
     ../demo/components/Tank.qml \
     ../demo/examples/demo1.qml \
+    ../demo/examples/ValueChanger.qml \
     qmldir
 
 !equals(_PRO_FILE_PWD_, $$OUT_PWD) {
@@ -83,3 +84,4 @@ qmldir.files = qmldir
 qmlcomponents.files = ../demo/components/*.qml
 qmlexamples.files = ../demo/examples/*.qml
 resources.files = ../demo/resources/*.svg
+

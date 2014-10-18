@@ -1,5 +1,5 @@
 import indigets 1.0
-import QtQuick 1.0
+import QtQuick 2.3
 
 Item {
     property bool on: false
