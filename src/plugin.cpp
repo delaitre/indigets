@@ -18,7 +18,11 @@ void Plugin::initializeEngine(QQmlEngine * engine, const char * uri)
 
     QQmlContext* context = engine->rootContext();
 
-    m_tools = new Tools(this);
+    m_tools = new Tools();
+    if(this->thread() != m_tools->thread())
+        m_tools->moveToThread(this->thread());
+    m_tools->setParent(this);
+
     context->setContextProperty("Indigets", m_tools);
 }
 
