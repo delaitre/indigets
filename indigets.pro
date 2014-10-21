@@ -4,7 +4,8 @@
 
 TEMPLATE = subdirs
 CONFIG += ordered
-SUBDIRS = src
+SUBDIRS = src \
+    demo_gui
 
 
 OTHER_FILES += \
