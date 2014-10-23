@@ -40,3 +40,5 @@ Makefile*
 *.manifest
 *.Release
 *.Debug
+*.exe
+qrc_*.cpp
