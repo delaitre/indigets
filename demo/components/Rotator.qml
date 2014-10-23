@@ -1,5 +1,5 @@
 import indigets 1.0
-import QtQuick 2.3
+import QtQuick 2.2
 
 Item {
     id: rotator

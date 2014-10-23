@@ -3,6 +3,8 @@ import indigets 1.0
 import demo 1.0
 import QtQuick 2.2
 
+import "../qml"
+
 Rectangle {
     id: root
     width: 800
