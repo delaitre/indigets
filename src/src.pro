@@ -39,20 +39,18 @@ SOURCES += plugin.cpp \
     valuemapper.cpp
 
 OTHER_FILES = \
-    ../demo/components/CircularButton.qml \
-    ../demo/components/Field.qml \
-    ../demo/components/Gauge.qml \
-    ../demo/components/Label.qml \
-    ../demo/components/Led.qml \
-    ../demo/components/Marker.qml \
-    ../demo/components/Pointer.qml \
-    ../demo/components/Rotator.qml \
-    ../demo/components/Scaler.qml \
-    ../demo/components/SquareButton.qml \
-    ../demo/components/Tank.qml \
-    ../demo/examples/demo1.qml \
-    ../demo/examples/ValueChanger.qml \
-    qmldir
+      qmldir \
+    ../indigets/components/CircularButton.qml \
+    ../indigets/components/Field.qml \
+    ../indigets/components/Gauge.qml \
+    ../indigets/components/Label.qml \
+    ../indigets/components/Led.qml \
+    ../indigets/components/Marker.qml \
+    ../indigets/components/Pointer.qml \
+    ../indigets/components/Rotator.qml \
+    ../indigets/components/Scaler.qml \
+    ../indigets/components/SquareButton.qml \
+    ../indigets/components/Tank.qml
 
 !equals(_PRO_FILE_PWD_, $$OUT_PWD) {
     copy_qmldir.target = $$OUT_PWD/qmldir
