@@ -1,3 +1,5 @@
+module indigets
+plugin indigets
 Scaler 1.0 components/Scaler.qml
 Rotator 1.0 components/Rotator.qml
 Marker 1.0 components/Marker.qml

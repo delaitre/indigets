@@ -1,11 +1,13 @@
+
 import indigets 1.0
-import demo 1.0
-import Qt 4.7
+import QtQuick 2.2
+
+import "../qml"
 
 Rectangle {
     id: root
-    width: 600
-    height: 400
+    width: 800
+    height: 600
 
     gradient: Gradient {
         GradientStop { position: 0.0; color: "#ff525252" }
@@ -25,8 +27,8 @@ Rectangle {
 
             Gauge {
                 id: mainGauge
-                width: 400
-                height: 400
+                width: 200
+                height: 200
 
                 Marker {
                     scale: parent.scale
@@ -346,3 +348,4 @@ Rectangle {
         }
     }
 }
+

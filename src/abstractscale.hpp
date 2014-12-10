@@ -1,23 +1,24 @@
 #ifndef ABSTRACTSCALE_HPP
 #define ABSTRACTSCALE_HPP
 
-#include <QDeclarativeItem>
+#include <QQuickItem>
+#include <QPainterPath>
 #include <QPointer>
 
 class ValueMapper;
 class ScaleZone;
 
-class AbstractScale : public QDeclarativeItem
+class AbstractScale : public QQuickItem
 {
     Q_OBJECT
     Q_PROPERTY(double minimum READ minimum WRITE setMinimum NOTIFY minimumChanged)
     Q_PROPERTY(double maximum READ maximum WRITE setMaximum NOTIFY maximumChanged)
     Q_PROPERTY(ValueMapper* mapper READ mapper WRITE setMapper NOTIFY mapperChanged)
-    Q_PROPERTY(QDeclarativeListProperty<ScaleZone> zones READ zones)
+    Q_PROPERTY(QQmlListProperty<ScaleZone> zones READ zones)
     Q_PROPERTY(const QPainterPath& path READ path NOTIFY pathChanged)
 
 public:
-    AbstractScale(QDeclarativeItem* parent = 0);
+    AbstractScale(QQuickItem* parent = 0);
 
     double minimum() const;
     void setMinimum(double minimum);
@@ -28,7 +29,7 @@ public:
     ValueMapper* mapper() const;
     void setMapper(ValueMapper* mapper);
 
-    QDeclarativeListProperty<ScaleZone> zones();
+    QQmlListProperty<ScaleZone> zones();
     int zoneCount() const;
     ScaleZone* zone(int index) const;
 

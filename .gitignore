@@ -32,3 +32,13 @@ moc_*
 # Auto-generated documentation files
 doc/api/*/*
 
+
+*.dll
+*.exp
+*.lib
+Makefile*
+*.manifest
+*.Release
+*.Debug
+*.exe
+qrc_*.cpp

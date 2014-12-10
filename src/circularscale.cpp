@@ -1,6 +1,6 @@
 #include "circularscale.hpp"
 
-CircularScale::CircularScale(QDeclarativeItem* parent)
+CircularScale::CircularScale(QQuickItem* parent)
     : AbstractScale(parent)
     , m_startAngle(215)
     , m_spanAngle(250)

@@ -1,6 +1,6 @@
 #include "linearscale.hpp"
 
-LinearScale::LinearScale(QDeclarativeItem* parent)
+LinearScale::LinearScale(QQuickItem* parent)
     : AbstractScale(parent)
     , m_orientation(LinearScale::Vertical)
 {

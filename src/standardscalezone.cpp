@@ -46,7 +46,7 @@ QPointF pointOnRect(const QRectF& rect, double angle)
 
 } // anonymous namespace
 
-StandardScaleZone::StandardScaleZone(QDeclarativeItem* parent)
+StandardScaleZone::StandardScaleZone(QQuickItem* parent)
     : ScaleZone(parent)
     , m_baselineVisible(true)
     , m_ticksVisible(true)
@@ -57,8 +57,8 @@ StandardScaleZone::StandardScaleZone(QDeclarativeItem* parent)
     , m_tickLength(3)
     , m_flipTicks(false)
 {
-    // need to disable this flag to draw inside a QDeclarativeItem
-    setFlag(QGraphicsItem::ItemHasNoContents, false);
+    // need to disable this flag to draw inside a QQuickItem
+    //FIXME:setFlag(QGraphicsItem::ItemHasNoContents, false);
 }
 
 TickEngine* StandardScaleZone::tickEngine() const
@@ -313,7 +313,8 @@ void StandardScaleZone::rebuild()
     }
 
     // Correct the zone position and size
-    setPos(rect.topLeft());
+    //setPos(rect.topLeft());
+    setX(rect.topLeft().x());setY(rect.topLeft().y());
     setImplicitWidth(rect.width());
     setImplicitHeight(rect.height());
 
@@ -323,11 +324,8 @@ void StandardScaleZone::rebuild()
     update();
 }
 
-void StandardScaleZone::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget)
+void StandardScaleZone::paint(QPainter* painter)
 {
-    Q_UNUSED(option);
-    Q_UNUSED(widget);
-
     AbstractScale* scale = this->scale();
     if (!scale)
         return;
@@ -353,7 +351,7 @@ void StandardScaleZone::paint(QPainter* painter, const QStyleOptionGraphicsItem*
             double value = it.key();
             double percent = scale->percentAtValue(value);
             QPointF position = scale->pointAtPercent(percent);
-            position += pos() * -1; // Adjust the position from scale pos to zone pos
+            position += QPointF(x(),y()) * -1; // Adjust the position from scale pos to zone pos
             qreal angleDeg = scale->angleAtPercent(percent);
 
             // Render

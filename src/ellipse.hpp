@@ -1,9 +1,13 @@
 #ifndef ELLIPSE_HPP
 #define ELLIPSE_HPP
 
-#include <QDeclarativeItem>
+#include <QQuickPaintedItem>
+#include <QPainterPath>
+#include <QGraphicsItem>
 
-class Ellipse : public QDeclarativeItem
+class QStyleOptionGraphicsItem;
+
+class Ellipse : public  QQuickPaintedItem
 {
     Q_OBJECT
     Q_PROPERTY(QColor color READ color WRITE setColor NOTIFY colorChanged)
@@ -11,7 +15,7 @@ class Ellipse : public QDeclarativeItem
     Q_PROPERTY(double borderWidth READ borderWidth WRITE setBorderWidth NOTIFY borderWidthChanged)
 
 public:
-    Ellipse(QDeclarativeItem* parent = 0);
+    Ellipse(QQuickItem* parent = 0);
 
     QColor color() const;
     void setColor(const QColor& color);
@@ -22,7 +26,7 @@ public:
     double borderWidth() const;
     void setBorderWidth(double width);
 
-    void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget = 0);
+    void paint(QPainter* painter);
 
 signals:
     void colorChanged(const QColor& color);
@@ -30,7 +34,7 @@ signals:
     void borderWidthChanged(double width);
 
 protected:
-    virtual QVariant itemChange(GraphicsItemChange change, const QVariant& value);
+    virtual void itemChange(ItemChange change, const ItemChangeData & value);
 
 private:
     QColor m_color;

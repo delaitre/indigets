@@ -1,15 +1,14 @@
-import QtQuick 1.0
+import QtQuick 2.2
 
-Text {
+TextInput {
     width: 50
     height: 20
     color: "white"
-    horizontalAlignment: Text.AlignHCenter
-    verticalAlignment: Text.AlignVCenter
+    horizontalAlignment: TextInput.AlignHCenter
 
     BorderImage {
         z: -1
-        source: "../resources/label.svg"
+        source: "../resources/field.svg"
         anchors.fill: parent
         border.left: width * 0.023809523809523836
         border.top: height * 0.05

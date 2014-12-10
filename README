@@ -6,4 +6,6 @@ To compile and run the demo:
 - Create the directory where you want to build the project ("mkdir indigets-build && cd indigets-build")
 - Configure with "cmake <path-to-sources>" from the build directory
 - Compile with "make"
-- Run the demo with the QML Viewer executable ("qmlviewer -I <plugin-build-dir> -I <indigets-dir> <indigets-dir>/demo/examples/demo1.qml")
+
+
+- Run the demo with the QML Viewer executable ("qmlscene -I <plugin-build-dir> -I <indigets-dir> <indigets-dir>/demo/examples/demo1.qml")

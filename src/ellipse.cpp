@@ -1,15 +1,16 @@
 #include "ellipse.hpp"
 #include <QPainter>
 
-Ellipse::Ellipse(QDeclarativeItem* parent)
-    : QDeclarativeItem(parent)
+Ellipse::Ellipse(QQuickItem* parent)
+    : QQuickPaintedItem(parent)
     , m_borderWidth(0.)
 {
-    // need to disable this flag to draw inside a QDeclarativeItem
-    setFlag(QGraphicsItem::ItemHasNoContents, false);
+    //FIXME: diasble flags settings ?
+    // need to disable this flag to draw inside a QQuickItem
+    //setFlag(QGraphicsItem::ItemHasNoContents, false);
 
     // need to disable this flag to receive geometry change events (used to discard the path cache)
-    setFlag(QGraphicsItem::ItemSendsGeometryChanges, true);
+    //setFlag(QGraphicsItem::ItemSendsGeometryChanges, true);
 }
 
 QColor Ellipse::color() const
@@ -57,11 +58,8 @@ void Ellipse::setBorderWidth(double width)
     }
 }
 
-void Ellipse::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget)
+void Ellipse::paint(QPainter* painter)
 {
-    Q_UNUSED(option);
-    Q_UNUSED(widget);
-
     // Rebuild the path if necessary
     if (m_path.isEmpty())
     {
@@ -80,9 +78,9 @@ void Ellipse::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, Q
     painter->drawPath(m_path);
 }
 
-QVariant Ellipse::itemChange(GraphicsItemChange change, const QVariant& value)
+void Ellipse::itemChange(ItemChange change, const ItemChangeData& value)
 {
     // Discard the path on geometry change
     m_path = QPainterPath();
-    return QDeclarativeItem::itemChange(change, value);
+    QQuickItem::itemChange(change, value);
 }

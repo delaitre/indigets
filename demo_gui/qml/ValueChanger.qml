@@ -1,5 +1,5 @@
-import demo 1.0
-import Qt 4.7
+import indigets 1.0
+import QtQuick 2.2
 
 Item {
     property QtObject subject

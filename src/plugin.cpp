@@ -8,16 +8,21 @@
 #include "linearscale.hpp"
 #include "circularscale.hpp"
 #include "standardscalezone.hpp"
-#include "QDeclarativeEngine"
-#include "QDeclarativeContext"
+#include <QQmlEngine>
+#include <QQmlContext>
+#include <qqml.h>
 
-void Plugin::initializeEngine(QDeclarativeEngine* engine, const char* uri)
+void Plugin::initializeEngine(QQmlEngine * engine, const char * uri)
 {
     Q_UNUSED(uri);
 
-    QDeclarativeContext* context = engine->rootContext();
+    QQmlContext* context = engine->rootContext();
 
-    m_tools = new Tools(this);
+    m_tools = new Tools();
+    if(this->thread() != m_tools->thread())
+        m_tools->moveToThread(this->thread());
+    m_tools->setParent(this);
+
     context->setContextProperty("Indigets", m_tools);
 }
 
@@ -37,4 +42,4 @@ void Plugin::registerTypes(const char* uri)
     qmlRegisterType<StandardScaleZone>(uri, 1, 0, "StandardScaleZone");
 }
 
-Q_EXPORT_PLUGIN2(indigets, Plugin);
+//Q_EXPORT_PLUGIN2(indigets, Plugin);

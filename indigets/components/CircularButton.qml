@@ -1,4 +1,5 @@
-import QtQuick 1.0
+import indigets 1.0
+import QtQuick 2.2
 
 Item {
     id: button
@@ -13,7 +14,7 @@ Item {
         anchors.fill: parent
         sourceSize.width: width
         sourceSize.height: height
-        source: "../resources/square_button_up.svg"
+        source: "../resources/circular_button_up.svg"
         visible: !press.visible && !checked
     }
 
@@ -22,7 +23,7 @@ Item {
         anchors.fill: parent
         sourceSize.width: width
         sourceSize.height: height
-        source: "../resources/square_button_down.svg"
+        source: "../resources/circular_button_down.svg"
         visible: !press.visible && checked
     }
 
@@ -31,7 +32,7 @@ Item {
         anchors.fill: parent
         sourceSize.width: width
         sourceSize.height: height
-        source: "../resources/square_button_down.svg"
+        source: "../resources/circular_button_down.svg"
         visible: mouseArea.pressed
     }
 
@@ -40,17 +41,18 @@ Item {
         anchors.centerIn: parent
         color: "white"
         scale: (mouseArea.pressed || checked) ? 0.95 : 1.0
-        horizontalAlignment: TextInput.AlignHCenter
+        horizontalAlignment: Text.AlignHCenter
         verticalAlignment: Text.AlignVCenter
     }
 
-    Rectangle {
+    Ellipse {
         id: highlight
         anchors.fill: parent
         color:  "#00000000"
-        border.color: "#ffabd037"
-        border.width: 2
+        borderColor: "#ffabd037"
+        borderWidth: 2
         visible: mouseArea.containsMouse
+        smooth: true
     }
 
     MouseArea {

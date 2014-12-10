@@ -17,7 +17,7 @@ public:
     };
 
 public:
-    LinearScale(QDeclarativeItem* parent = 0);
+    LinearScale(QQuickItem* parent = 0);
 
     Orientation orientation() const;
     void setOrientation(Orientation orientation);
