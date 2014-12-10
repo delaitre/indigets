@@ -5,8 +5,15 @@ QT += qml quick svg
 TARGET = $$qtLibraryTarget(indigets)
 
 DESTDIR = ../indigets
-OBJECTS_DIR = tmp
-MOC_DIR = tmp
+
+CONFIG(debug, debug|release) {
+OBJECTS_DIR = build/debug
+MOC_DIR     = build/debug
+}
+else {
+OBJECTS_DIR = build/release
+MOC_DIR     = build/release
+}
 
 
 HEADERS += plugin.hpp \
